@@ -1,0 +1,135 @@
+.search{
+    width: 100vw;
+    height: 543.75px;
+    display: flex;
+    position: relative;
+}
+
+.search_left_top{
+    width: 100%;
+    height: 253.75px;
+    position: relative;
+    color: white;
+    display: flex;
+}
+
+.search_left{
+    overflow: hidden;
+    width: 38vw;
+}
+
+.search_left_bottom{
+  background-color: #A76E64;
+  height: 100%;
+}
+
+.search_left img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    z-index: -1
+}
+
+.search_left_empty{
+    width: 60%;
+    height: 100%;
+    position: relative;
+}
+
+.search_left_empty img{
+    width: 100%;
+    height: 290px;
+    position: absolute;
+    z-index: 2;
+    object-fit: cover;
+}
+
+.search_left_ingre{
+    width: 40%;
+    padding-top: 2rem;
+    font-family: 'Roboto Mono';
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.search_left_ingre input{
+    width: 90%;
+    padding: 0.8rem 1rem;
+    background-color: transparent;
+    outline: none;
+    color: white;
+}
+
+.search_middle{
+    width: 30vw;
+    height: 100%;
+    position: relative;
+    background-color: #F1EBE6;
+}
+
+.search_middle img{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.search_right_top{
+    height: 253.75px;
+    width: 32vw;
+    font-size: 23vw;
+    padding-left: 2rem;
+}
+
+.search_right_top p{
+    position: absolute;
+    line-height: 160px;
+    right: -33%;
+}
+.search_right_bottom p{
+    margin: 2.3rem 0 0 2.4rem;
+    color: white;
+    font-family: 'Roboto Mono';
+    font-size: 2rem;
+
+}
+
+.search_right_bottom{
+    height: 290px;
+    width: 32vw;
+    position: relative;
+    overflow: hidden;
+    background-color: #505666;
+    cursor: pointer;
+    transition: 0.5 ease-in-out;
+}
+.search_right_bottom:hover::after, .search_right_bottom:hover::before{
+    transform: scale(1, 1);
+}
+.search_right_bottom::after, .search_right_bottom::before{
+    content: '';
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    bottom: 30px;
+    left: 30px;
+    transition: all 0.5s;
+}
+.search_right_bottom::after{
+    border-right: 4px solid #A76E64;
+    border-left: 4px solid #A76E64;
+    transform: scale(1, 0);
+}
+.search_right_bottom::before{
+    border-top: 4px solid #A76E64;
+    border-bottom: 4px solid #A76E64;
+    transform: scale(0, 1);
+}
+
+.search_right_bottom img{
+    width: 100%;
+    height: 100%;
+    bottom: -21%;
+    position: absolute;
+}

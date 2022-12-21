@@ -1,0 +1,169 @@
+.nav{
+    width: 100vw;
+    display: flex;
+    overflow: hidden;
+}
+
+.nav_left{
+    width: 50%;
+}
+
+.nav_left_top{
+    display: flex;
+    height: 253.75px;
+}
+
+.nav_left_top img{
+    width: 50%;
+    object-fit: cover;
+}
+
+.nav_search{
+    background-color: #A76E64;
+    width: 50%;
+    font-family: 'Roboto Mono';
+}
+
+.nav_left_bottom{
+    background-color: #F1EBE6;
+    height: 253.75px;
+    font-size: 25vw;
+    padding-left: 2rem;
+}
+
+.nav_left_bottom p{
+    line-height: 200px;
+}
+
+.nav_search{
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav_search_social{
+    display: flex;
+    gap: 15px;
+    padding-top: 5px;
+    font-size: 20px;
+}
+
+.nav_search_social svg{
+    cursor: pointer;
+    transition: 0.5s ease-out;
+}
+
+.nav_search_social svg:hover{
+    scale: 1.5;
+}
+
+.search {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+    padding-left: 0.5rem;
+    margin-right: 8%;
+}
+
+.search > svg {
+    color: white;
+    font-size: 1.2rem;
+    width: 25px;
+    cursor: pointer;
+}
+.search{
+    display: flex;
+    justify-content: flex-start;
+}
+.search > input {
+    width: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease-in-out;
+    background-color: transparent;
+    border: none;
+    color: white
+}
+.search > input:focus{
+    outline: none;
+}
+
+.show_search {
+    background-color: #da9286;
+    z-index: 99;
+}   
+
+.show_search > input {
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    padding: 0.3rem;
+    z-index: 99;
+}
+.nav_right{
+    display: flex;
+    position: relative;
+}
+
+.nav_right_log{
+    width: 50%;
+    display: flex;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    color: #A76E64;
+}
+
+.nav_right_log{
+    display: flex;
+    gap: 1.5rem;
+    list-style-type: none;
+}
+
+.nav_link{
+    cursor: pointer;
+    height: fit-content;
+    position: relative;
+    font-family: 'Roboto Mono';
+}
+
+.nav_link::before {
+    content: '';
+    background-color: hsla(196, 61%, 58%, .75);
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+    width: 100%;
+    height: 8px;
+    z-index: -1;
+    transition: all .3s ease-in-out;
+}
+
+.nav_link:hover::before {
+    bottom: 0;
+    height: 100%;
+  }
+
+.bg_img{
+    position: absolute;
+    width: 140%;
+    right: -100%;
+    top: -30%;
+    z-index: -2;
+}
+
+.nav_right_logo{
+    width: 50%;
+    padding-top: 2rem;
+}
+
+.nav_right_logo img{
+    width: 80%;
+}
+
+.nav_quote{
+    position: absolute;
+    bottom: 10%;
+}
