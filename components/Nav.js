@@ -1,11 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styles from '../styles/Nav.module.css'
 import { BiSearchAlt } from 'react-icons/bi';
 import { BsFacebook, BsInstagram, BsPinterest } from 'react-icons/bs';
+import Sign from './Sign'
+import Log from './Log';
 
 function Nav() {
     const [showSearch, setShowSearch] = useState(false);
     const [search,setSearch]=useState("")
+    const [openSignup, setOpenSignup] = useState(false)
+    const [openSignin, setOpenSignin] = useState(false)
+    console.log(openSignup)
+    
+
+    const searchRef =useRef(null)
+    const searchRecipe = (e) => {
+        if( e.key == "Enter"){
+            e.preventDefault()
+            setSearch(searchRef.current.value)
+        }
+    }
+    const signUp = () =>{
+        setOpenSignin(true)
+        setOpenSignup(true)
+    }
+    const onClose = () => {
+        setOpenSignin(false)
+        setOpenSignup(false)
+    }
   return (
     <div className={styles.nav}>
         <div className={styles.nav_left}>
@@ -19,9 +41,8 @@ function Nav() {
                                 onClick={() => setShowSearch(true)}
                                 onBlur={() => {setShowSearch(false);}}/>
                                 <input
-                                onChange={(e)=>{setSearch(e.target.value)}}
-                                value={search}
-                                // onKeyPress={searchMovie}
+                                onKeyPress={searchRecipe}
+                                ref={searchRef}
                                 type="text"
                                 placeholder="Search"
                                 onBlur={() => {setShowSearch(false)}}
@@ -45,8 +66,8 @@ function Nav() {
                 <img src='/logo.png'/>
             </div>
             <div className={styles.nav_right_log}>
-                    <a className={styles.nav_link}>Sign Up</a>
-                    <a className={styles.nav_link}>Log In</a>
+                    <a className={styles.nav_link} onClick={signUp}>Sign Up</a>
+                    <a className={styles.nav_link} onClick={()=> setOpenSignin(true)}>Sign In</a>
                     <div className={styles.nav_quote}>
                         <p>don't know what to cook?</p>
                         <p>we have all the answers</p>
@@ -56,6 +77,8 @@ function Nav() {
             </div>
             <img className={styles.bg_img} src='/food2.png'/>
         </div>
+        <Sign open={openSignup} onClose={onClose}/>
+        <Log open={openSignin} onClose={onClose} openSignup={openSignup}/>
     </div>
   )
 }
