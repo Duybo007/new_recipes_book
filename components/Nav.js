@@ -1,33 +1,48 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from '../styles/Nav.module.css'
 import { BiSearchAlt } from 'react-icons/bi';
 import { BsFacebook, BsInstagram, BsPinterest } from 'react-icons/bs';
-import Sign from './Sign'
 import Log from './Log';
+import { login, logout, openModal, openSignin, openSignup, searchWord, selectUser } from '../features/search/searchSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAuth, signOut } from "firebase/auth";
 
 function Nav() {
     const [showSearch, setShowSearch] = useState(false);
-    const [search,setSearch]=useState("")
-    const [openSignup, setOpenSignup] = useState(false)
-    const [openSignin, setOpenSignin] = useState(false)
-    console.log(openSignup)
-    
-
+    const dispatch = useDispatch()
+ 
     const searchRef =useRef(null)
     const searchRecipe = (e) => {
         if( e.key == "Enter"){
             e.preventDefault()
-            setSearch(searchRef.current.value)
+            dispatch(searchWord(searchRef.current.value))
         }
     }
     const signUp = () =>{
-        setOpenSignin(true)
-        setOpenSignup(true)
+        dispatch(openModal(true))
+        dispatch(openSignup(true))
     }
-    const onClose = () => {
-        setOpenSignin(false)
-        setOpenSignup(false)
+    const signIn = () => {
+        dispatch(openModal(true))
+        dispatch(openSignin())
     }
+    const user = useSelector(selectUser)
+    const auth = getAuth();
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(userAuth => {
+          if (userAuth){
+            //Login
+            dispatch(login({
+              uid: userAuth.uid,
+              email: userAuth.email
+            }))
+          } else {
+            //Logout
+            dispatch(logout())
+          }
+        })
+        return unsubscribe
+      }, [dispatch])
   return (
     <div className={styles.nav}>
         <div className={styles.nav_left}>
@@ -66,8 +81,18 @@ function Nav() {
                 <img src='/logo.png'/>
             </div>
             <div className={styles.nav_right_log}>
-                    <a className={styles.nav_link} onClick={signUp}>Sign Up</a>
-                    <a className={styles.nav_link} onClick={()=> setOpenSignin(true)}>Sign In</a>
+                    {!user ? (
+                        <div className={styles.nav_right_log_links}>
+                            <a className={styles.nav_link} onClick={signUp}>Sign Up</a>
+                            <a className={styles.nav_link} onClick={signIn}>Sign In</a>
+                        </div>
+                    ) : (
+                        <div className={styles.nav_right_log_links}>
+                            <a className={styles.nav_link} onClick={() => signOut(auth)}>Sign Out</a>
+                            <a className={styles.nav_link} onClick={() => signOut(auth)}>My Recipes</a>
+                        </div>
+                    )}
+                    
                     <div className={styles.nav_quote}>
                         <p>don't know what to cook?</p>
                         <p>we have all the answers</p>
@@ -77,8 +102,7 @@ function Nav() {
             </div>
             <img className={styles.bg_img} src='/food2.png'/>
         </div>
-        <Sign open={openSignup} onClose={onClose}/>
-        <Log open={openSignin} onClose={onClose} openSignup={openSignup}/>
+        <Log/>
     </div>
   )
 }

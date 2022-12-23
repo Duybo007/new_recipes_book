@@ -114,12 +114,15 @@
     font-size: 1.5rem;
     padding-top: 1rem;
     color: #A76E64;
+    list-style-type: none;
+    gap: 1.5rem;
+    position: relative;
 }
 
-.nav_right_log{
+.nav_right_log_links{
     display: flex;
     gap: 1.5rem;
-    list-style-type: none;
+    position: absolute;
 }
 
 .nav_link{
@@ -148,8 +151,8 @@
 
 .bg_img{
     position: absolute;
-    width: 140%;
-    right: -100%;
+    width: 150%;
+    right: -120%;
     top: -30%;
     z-index: -2;
     animation: rotation 100s infinite linear;

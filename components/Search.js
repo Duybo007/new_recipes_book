@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selectSearch } from '../features/search/searchSlice'
 import styles from '../styles/Search.module.css'
+import Recipes from './Recipes'
 
 function Search() {
+    const searchWord = useSelector(selectSearch)
+    const [recipes, setRecipes] = useState([])
+    const getSearch = async() =>{
+        const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=832d4a7e0e8e4b34add5c8bea50ecf0a&number=16&query=${searchWord}`)
+        const recipeDatas = await data.json()
+        setRecipes(recipeDatas.results)
+    }
+    useEffect(()=>{
+        getSearch()
+    } ,[searchWord])
+    console.log(recipes)
   return (
-    <div className={styles.search}>
+    <div className={styles.search_container}>
+        <Recipes recipes={recipes}/>
+        <div className={styles.search}>
         <div className={styles.search_left}>
             <div className={styles.search_left_top}>
                 <img src='/food3.jpg' alt='food'/>
@@ -35,6 +51,7 @@ function Search() {
                 <img src='/drinks.png'/>
                 <p>Delicious and refreshing cocktail recipes to enjoy any time of year</p>
             </div>
+        </div>
         </div>
     </div>
   )

@@ -1,5 +1,7 @@
 import '../styles/globals.css'
 import { Caramel } from '@next/font/google'
+import { Provider } from 'react-redux';
+import { store } from '../app/store';
 
 const caramel = Caramel({ 
   subsets: ['latin'],
@@ -9,7 +11,9 @@ const caramel = Caramel({
 
 export default function App({ Component, pageProps }) {
   return (
-  <main className={caramel.className}>
-      <Component {...pageProps} />
-  </main>)
+  <Provider store={store}>
+    <main className={caramel.className}>
+        <Component {...pageProps} />
+    </main>
+  </Provider>)
 }
