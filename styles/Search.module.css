@@ -30,13 +30,18 @@
     z-index: -1
 }
 
-.search_left_empty{
+.search_left_empty,
+.search_left_empty_bottom{
     width: 60%;
     height: 100%;
     position: relative;
 }
 
-.search_left_empty img{
+.search_left_empty_bottom{
+    overflow-y: auto;
+}
+
+.search_left_empty_bottom img{
     width: 100%;
     height: 290px;
     position: absolute;

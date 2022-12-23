@@ -7,7 +7,11 @@ import { login, logout, openModal, openSignin, openSignup, searchWord, selectUse
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, signOut } from "firebase/auth";
 
+
 function Nav() {
+    
+
+    
     const [showSearch, setShowSearch] = useState(false);
     const dispatch = useDispatch()
  
@@ -102,7 +106,7 @@ function Nav() {
             </div>
             <img className={styles.bg_img} src='/food2.png'/>
         </div>
-        <Log/>
+        <Log key="recipe"/>
     </div>
   )
 }
