@@ -180,3 +180,17 @@
     position: absolute;
     bottom: 10%;
 }
+
+@media (max-width: 1000px) {
+    .nav{
+        flex-direction: column-reverse;
+    }
+    .nav_left_top{
+        width: 100vw;
+    }
+    .bg_img{
+        width: 90%;
+        right: -60%;
+    }
+    .nav_left_bottom{display: none;}
+}

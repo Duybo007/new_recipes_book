@@ -1,7 +1,9 @@
 .search{
     height: 543.75px;
+    width: 100vw;
     display: flex;
     position: relative;
+    overflow: hidden;
 }
 
 .search_left_top{
@@ -14,12 +16,14 @@
 
 .search_left{
     overflow: hidden;
-    width: 38vw;
+    height: 543.75px;
+    width: 38%;
 }
 
 .search_left_bottom{
   background-color: #A76E64;
   height: 100%;
+  overflow: hidden;
 }
 
 .search_left img{
@@ -37,14 +41,14 @@
     position: relative;
 }
 
-.search_left_empty_bottom{
-    overflow-y: auto;
+.bot{
+  width: 100%;
 }
 
 .search_left_empty_bottom img{
     width: 100%;
-    height: 290px;
-    position: absolute;
+    /* height: 290px; */
+    /* position: absolute; */
     z-index: 2;
     object-fit: cover;
 }
@@ -67,21 +71,21 @@
 }
 
 .search_middle{
-    width: 30vw;
+    width: 30%;
     height: 100%;
     position: relative;
     background-color: #F1EBE6;
+    display: flex;
 }
 
 .search_middle img{
-    position: absolute;
-    bottom: 0;
     width: 100%;
+    object-fit: cover;
 }
 
 .search_right_top{
     height: 253.75px;
-    width: 32vw;
+    width: 32%;
     font-size: 23vw;
     padding-left: 2rem;
 }
@@ -137,4 +141,27 @@
     bottom: -21%;
     position: absolute;
     object-fit: cover;
+}
+
+@media (max-width: 1000px){
+    .search{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    .search_left{
+        overflow:visible;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .search_middle{
+        display: none;
+    }
+    .search_right{
+        display: none;
+    }
+    .search_right_bottom{
+        width: 100%;
+    }
 }

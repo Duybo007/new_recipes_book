@@ -93,7 +93,7 @@ function Nav() {
                     ) : (
                         <div className={styles.nav_right_log_links}>
                             <a className={styles.nav_link} onClick={() => signOut(auth)}>Sign Out</a>
-                            <a className={styles.nav_link} onClick={() => signOut(auth)}>My Recipes</a>
+                            <a className={styles.nav_link} >My Recipes</a>
                         </div>
                     )}
                     

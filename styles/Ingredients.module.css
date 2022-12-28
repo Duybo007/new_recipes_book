@@ -1,5 +1,13 @@
 .ingredients{
     padding: 1rem;
+    padding-bottom: 10rem;
+    display: flex;
+}
+
+.ingredient_list{
+    height: 260px;
+    overflow: auto;
+    width: 50%;
 }
 
 .main {
@@ -57,4 +65,10 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+@media (max-width: 1000px){
+    .ingredient_list{
+        height: 450px;
+    }
 }

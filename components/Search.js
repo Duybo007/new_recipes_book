@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { selectSearch } from '../features/search/searchSlice'
+import { selectRecipesIngre, selectSearch } from '../features/search/searchSlice'
 import styles from '../styles/Search.module.css'
 import Recipes from './Recipes'
 import * as XLSX from 'xlsx/xlsx.mjs'
 import Ingredients from './Ingredients'
+import { apiKey } from '../firebase'
 
 // to find similar in gredients from user's input
 function getSimilarValues(array, input) {
@@ -19,9 +20,12 @@ function getSimilarValues(array, input) {
   }
 function Search() {
     const searchWord = useSelector(selectSearch)
+    const recipesIngre = useSelector(selectRecipesIngre)
     const [recipes, setRecipes] = useState([])
     const searchRef =useRef(null)
     const [suggestIngre, setSuggestIngre] = useState()
+    // check if recipes or recipesIngre is empty, display if not empty
+    const recipesDisplay = recipes?.length > 0 ? recipes : recipesIngre.length > 0 ? recipesIngre : []
 
     let url = "https://spoonacular.com/application/frontend/downloads/top-1k-ingredients.csv"
     const array =[]
@@ -47,15 +51,13 @@ function Search() {
     }, [])
 
     // handle ingredient submit
-    const handleSibmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         setSuggestIngre(getSimilarValues(ingre, searchRef.current.value))
     }
 
-    console.log(suggestIngre)
-
     const getSearch = async() =>{
-        const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=832d4a7e0e8e4b34add5c8bea50ecf0a&number=16&query=${searchWord}`)
+        const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=16&query=${searchWord}`)
         const recipeDatas = await data.json()
         setRecipes(recipeDatas.results)
     }
@@ -64,46 +66,46 @@ function Search() {
     } ,[searchWord])
   return (
     <div className={styles.search_container}>
-        <Recipes recipes={recipes}/>
+        <Recipes id='recipes' recipes={recipesDisplay}/>
         <div className={styles.search}>
-        <div className={styles.search_left}>
-            <div className={styles.search_left_top}>
-                <img src='/food3.jpg' alt='food'/>
-                <div className={styles.search_left_empty}/>
-                <form onSubmit={handleSibmit} className={styles.search_left_ingre}>
-                    <h1>what's in your pantry</h1>
-                    <input
-                    ref={searchRef}
-                    placeholder='Search'
-                    type='text'/>
-                </form>
-            </div>
-            <div className={styles.search_left_bottom}>
-                <div className={styles.search_left_empty_bottom}>
-                    {!suggestIngre? (
-                        <img src='/dessert.jpg'/>
-                    ) : (
-                        <Ingredients suggestIngre={suggestIngre}/>
-                    )}
+            <div className={styles.search_left}>
+                <div className={styles.search_left_top}>
+                    <img src='/food3.jpg' alt='food'/>
+                    <div className={styles.search_left_empty}/>
+                    <form onSubmit={handleSubmit} className={styles.search_left_ingre}>
+                        <h1>what's in your pantry</h1>
+                        <input
+                        ref={searchRef}
+                        placeholder='Search'
+                        type='text'/>
+                    </form>
                 </div>
-                <div className={styles.search_left_ingre_list}>
-                
-                
+                <div className={styles.search_left_bottom}>
+                    <div className={`${styles.search_left_empty_bottom} ${styles.bot}`}>
+                        {!suggestIngre? (
+                            <img src='/dessert.jpg'/>
+                        ) : (
+                            <Ingredients suggestIngre={suggestIngre}/>
+                        )}
+                    </div>
+                    <div className={styles.search_left_ingre_list}>
+                    
+                    
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className={styles.search_middle}>
-            <img src='/cream.png'/>
-        </div>
-        <div className={styles.search_right}>
-            <div className={styles.search_right_top}>
-                <p>for dinner</p>
+            <div className={styles.search_middle}>
+                <img src='/cream.png'/>
             </div>
-            <div className={styles.search_right_bottom}>
-                <img src='/drinks.png'/>
-                <p>Delicious and refreshing cocktail recipes to enjoy any time of year</p>
+            <div className={styles.search_right}>
+                <div className={styles.search_right_top}>
+                    <p>for dinner</p>
+                </div>
+                <div className={styles.search_right_bottom}>
+                    <img src='/drinks.png'/>
+                    <p>Delicious and refreshing cocktail recipes to enjoy any time of year</p>
+                </div>
             </div>
-        </div>
         </div>
     </div>
   )

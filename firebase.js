@@ -23,7 +23,7 @@ const firebaseConfig = {
   
   };
   
-
+const apiKey = "377fedd8a7674309a40704af3a9a70ce"
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 const db = getFirestore()
@@ -31,4 +31,4 @@ const storage = getStorage()
 
 export const auth = getAuth(app);
 
-export { app, db, storage}
+export { app, db, storage, apiKey}
