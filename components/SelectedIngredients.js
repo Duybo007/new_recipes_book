@@ -13,7 +13,10 @@ function SelectedIngredients({selectedOptions, remove, findRecipes}) {
         className={styles.selectedIngredients_btn}>
           Find Recipe
         </button></a>
-        <p>Selected: {selectedOptions.join(', ')}</p>
+        <div className={styles.selected}>
+          <p>Selected: {selectedOptions.join(', ')}</p>
+        </div>
+        
         
     </div>
   )

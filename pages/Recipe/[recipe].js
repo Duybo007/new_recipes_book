@@ -8,6 +8,7 @@ import {  GiMilkCarton, GiWheat } from 'react-icons/gi';
 
 function recipe() {
     const router = useRouter()
+    const [activeTab, setActiveTab] = useState("instructions")
     const [detail, setDetail]= useState({})
     let params = router.query
 
@@ -34,7 +35,7 @@ function recipe() {
             <div className={styles.left}>
                 <div className={styles.left_top}>
                     <div className={styles.logo}>
-                        <img src='/logo.png' alt="logo"/>
+                        <a href='/'><img src='/logo.png' alt="logo"/></a>
                     </div>
                     <div className={styles.time}>
                         <div className={styles.time_top}>
@@ -55,34 +56,51 @@ function recipe() {
                         <img src='/vegan.png'/>
                     </div>
                     <div className={styles.vegan_des}>
-                        <h1>NOT</h1>
+                        <h1>{detail.vegan? "yes": "no"}</h1>
                     </div>
                 </div>
             </div>
             <div className={styles.middle}>
                 <div className={styles.middle_top}>
                     <div className={styles.instruction}>
-                        <h1>instruction</h1>
+                        <button
+                        onClick={() => setActiveTab('instructions')}
+                        className={activeTab === "instructions" ? styles.active: styles.disable}
+                        >instruction</button>
                     </div>
                     <div className={styles.ingredients}>
-                        <h1>ingredients</h1>
+                        <button
+                        className={activeTab === "ingredients" ? styles.active: styles.disable}
+                        onClick={() => setActiveTab('ingredients')}
+                        >ingredients</button>
                     </div>
                 </div>
-                <div className={styles.middle_bottom}>
-                    <h4  dangerouslySetInnerHTML={{__html: detail.summary}}></h4>
-                    <h4  dangerouslySetInnerHTML={{__html: detail.instructions}}></h4>
-                </div>
+                {activeTab === "instructions" && (
+                    <div className={styles.middle_bottom}>
+                        <p  dangerouslySetInnerHTML={{__html: detail.summary}}></p>
+                        <p  dangerouslySetInnerHTML={{__html: detail.instructions}}></p>
+                    </div>
+                )}
+                {activeTab === "ingredients" && (
+                    <ul className={styles.middle_bottom}>
+                        {detail.extendedIngredients.map((i)=> (
+                        <li key={i.id}>{i.original}</li>) )}
+                    </ul>
+                )}
             </div>
             <div className={styles.right}>
                 <div className={styles.right_top}>
                     <div className={styles.serving_left}><p>serving</p></div>
+                    <br/>
                     <div className={styles.serving_right}>{detail.servings}</div>
                 </div>
                 <div className={styles.right_middle}>
                     <GiMilkCarton/>
+                    <h1>{detail.dairyFree? "dairy free" : "contain dairy"}</h1>
                 </div>
                 <div className={styles.right_bottom}>
                     <GiWheat/>
+                    <h1>{detail.glutenFree? "gluten free" : "contain gluten"}</h1>
                 </div>
             </div>
         </div>

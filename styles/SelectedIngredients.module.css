@@ -16,7 +16,9 @@
 .selectedIngredients_remove:hover{
     color: red;
 }
+.selectedIngredients p{
 
+}
 .selectedIngredients_btn{
     padding: 0.5rem 1rem;
     background-color: transparent;
@@ -29,4 +31,12 @@
 .selectedIngredients_btn:hover{
     background-color: hsla(196, 61%, 58%, .75);
 }
-
+.selected{
+    overflow-y: auto;
+    max-height: 120px;
+}
+@media (max-width: 500px) {
+    .selectedIngredients h2{
+        text-align: center;
+    }
+}

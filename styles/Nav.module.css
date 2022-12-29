@@ -194,3 +194,9 @@
     }
     .nav_left_bottom{display: none;}
 }
+@media (max-width: 500px) {
+    .nav_search{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}

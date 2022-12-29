@@ -1,4 +1,19 @@
-
+.popup{
+  z-index: 10;
+}
+.recipe_list{
+  height: 100%;
+  position: relative;
+}
+.recipe_list h2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Roboto Mono';
+  font-weight: bold;
+  color: red;
+}
 .recipe_list img{
     height: 100%;
     filter: grayscale(100%);
@@ -140,20 +155,14 @@
       opacity: 1;
     }
   }
-  /* .open_popup{
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: .75rem 1.25rem;
-    border: 1px solid;
-  } */
-  /* .page{
-    min-height: 100vh;
-    display: flex;
-  } */
-  /* .page__container{
-    max-width: 1200px;
-    padding-left: .75rem;
-    padding-right: .75rem;  
-    margin: auto;
-  } */
+
+.liked{
+  color: red;
+}
+.recipe_list svg{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  z-index: 15;
+}

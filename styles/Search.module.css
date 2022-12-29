@@ -4,26 +4,32 @@
     display: flex;
     position: relative;
     overflow: hidden;
+    z-index: 0;
 }
 
 .search_left_top{
     width: 100%;
-    height: 253.75px;
+    height: 50%;
     position: relative;
     color: white;
     display: flex;
 }
-
+.search_left_top form{
+    z-index: 1
+}
+.search_left_top input{
+    z-index: 2;
+}
 .search_left{
     overflow: hidden;
     height: 543.75px;
     width: 38%;
-    z-index: -1;
+    background-color: #A76E64;
 }
 
 .search_left_bottom{
   background-color: #A76E64;
-  height: 290px;
+  height: 50%;
   overflow: hidden;
 }
 
@@ -32,7 +38,6 @@
     height: 100%;
     position: absolute;
     object-fit: cover;
-    z-index: -1
 }
 
 .search_left_empty,
@@ -48,7 +53,7 @@
 
 .search_left_empty_bottom img{
     height: 100%;
-    z-index: 2;
+    /* z-index: 2; */
     object-fit: cover;
 }
 
@@ -59,7 +64,6 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    z-index: -1;
 }
 
 .search_left_ingre input{
@@ -96,7 +100,6 @@
     position: absolute;
     line-height: 160px;
     right: -33%;
-    z-index: -1
 }
 .search_right_bottom p{
     margin: 2.3rem 0 0 2.4rem;
@@ -114,7 +117,6 @@
     background-color: #505666;
     cursor: pointer;
     transition: 0.5 ease-in-out;
-    z-index: -1;
 }
 .search_right_bottom:hover::after, .search_right_bottom:hover::before{
     transform: scale(1, 1);
@@ -167,5 +169,11 @@
     }
     .search_right_bottom{
         width: 100%;
+    }
+}
+@media (max-width: 500px) {
+    .search_left_ingre{
+        width: 50%;
+        padding-top: 1rem;
     }
 }

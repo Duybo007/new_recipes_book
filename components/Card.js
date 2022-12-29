@@ -56,7 +56,7 @@ function Card({img, title, id}) {
         }
       }
     useEffect(() => {
-      myRecipes.map((r) => {
+      myRecipes?.map((r) => {
         if(r.id === id){
           setLiked(true)
         }
@@ -67,11 +67,13 @@ function Card({img, title, id}) {
     // <Link className={styles.recipe} key={recipe.id} href={"/Recipe/"+recipe.id}>
     <div className={styles.wrapper}>
         <div className={`${styles.box} ${styles.zoom_in}`}>
-            {liked? (
-              <AiFillHeart onClick={()=>deleteRecipes(id)} className={styles.liked}/>
-            ) : (
-              <AiOutlineHeart onClick={savedRecipes} />
-            )}
+        { user ? (
+        liked ? (
+          <AiFillHeart onClick={()=>deleteRecipes(id)} className={styles.liked}/>
+        ) : (
+          <AiOutlineHeart onClick={savedRecipes} />
+        )
+        ) : null }
             <img src={img} alt="Recipes img"/>
             <h2>{title}</h2>
             <p>{pickRandomItem(quotes)}</p>

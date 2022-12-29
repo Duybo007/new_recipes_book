@@ -82,6 +82,7 @@
     align-items: center;
     background-color: #164704;
     color: white;
+    font-size: 4rem;  ;
 }
 
 .middle{
@@ -90,10 +91,23 @@
 }
 .middle_top{
     height: 35%;
-    background-color: #E24D2F;
+    background-color: white;
     font-family: 'Roboto Mono';
     font-size: 1.7rem;
-
+}
+.middle_top button{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 0px;
+    color: white;
+    font-size: 4rem;
+    font-family: 'Roboto Mono';
+    cursor: pointer;
+    transition: 0.5s ease-out;
+}
+.middle_top button:hover{
+    opacity: 1;
 }
 .instruction{
     height: 50%;
@@ -101,19 +115,28 @@
     justify-content: center;
     align-items: center;
 }
+.instruction button{
+    background-color: #E24D2F;
+}
 .ingredients{
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #a02c15
+}
+.ingredients button{
+    background-color: #E24D2F;
 }
 .middle_bottom{
     background-color: #2E3280;
     padding: 2rem;
     height: 65%;
     font-family: 'Roboto Mono';
-    font-size: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
 }
 
 .right{
@@ -122,7 +145,7 @@
 .right_top{
     height: 35%;
     width: 100%;
-    background-color: #40BDBD;
+    background-color: #C5D437;
     display: flex;
     font-family: 'Roboto Mono';
     color: white;
@@ -144,23 +167,34 @@
     justify-content: center;
     align-items: center;
     font-size: 3rem;
-    background-color: #1B192C;
+    background-color: #B65BCA;
 }
 .right_middle{
     height: 33%;
-    background-color: #2B62A2;
+    background-color: #628AF9;
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 6rem;
 }
+.right_middle h1{
+    font-size: 4rem;
+}
 .right_bottom{
     height: 32%;
-    background-color: #EDC525;
+    background-color: #EAA052;
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 6rem;
+}
+.right_bottom h1{
+    font-size: 4rem;
+}
+.disable{
+    opacity: 0.4;
 }
