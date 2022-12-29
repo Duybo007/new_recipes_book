@@ -1,0 +1,166 @@
+.detail{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+.left{
+    width: 30%;
+    height: 100%;
+    background-color: white;
+}
+.left_top{
+    display: flex;
+    width: 100%;
+    height: 35%;
+}
+.logo{
+    width: 50%;
+}
+.logo img{
+    width: 100%;
+    cursor: pointer;
+}
+.time{
+    width: 50%;
+    background-color: #232148;
+    color: white;
+}
+.time_top{
+    height: 50%;
+    background-color: #1B192C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto Mono';
+}
+.time_bottom{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+.left_middle{
+    background-color: aqua;
+    width: 100%;
+    height: 45%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.left_middle_img{
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.left_middle_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.left_bottom{
+    height: 20%;
+    display: flex;
+}
+.vegan{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #25640e;
+}
+.vegan img{
+    width: 100%;
+}
+.vegan_des{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #164704;
+    color: white;
+}
+
+.middle{
+    width: 40%;
+    color: white;
+}
+.middle_top{
+    height: 35%;
+    background-color: #E24D2F;
+    font-family: 'Roboto Mono';
+    font-size: 1.7rem;
+
+}
+.instruction{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ingredients{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a02c15
+}
+.middle_bottom{
+    background-color: #2E3280;
+    padding: 2rem;
+    height: 65%;
+    font-family: 'Roboto Mono';
+    font-size: 1rem;
+}
+
+.right{
+    width: 30%;
+}
+.right_top{
+    height: 35%;
+    width: 100%;
+    background-color: #40BDBD;
+    display: flex;
+    font-family: 'Roboto Mono';
+    color: white;
+}
+.serving_left{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;    
+}
+.serving_left p{
+    text-orientation: upright;
+    writing-mode: vertical-rl;
+}
+.serving_right{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    background-color: #1B192C;
+}
+.right_middle{
+    height: 33%;
+    background-color: #2B62A2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6rem;
+}
+.right_bottom{
+    height: 32%;
+    background-color: #EDC525;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6rem;
+}

@@ -1,3 +1,4 @@
+
 .footer{
     display: flex;
     width: 100vw;
@@ -8,6 +9,7 @@
     height: 253.75px;
     overflow: hidden;
     position: relative;
+    z-index: -1;
 }
 
 .footer_left p{
@@ -25,6 +27,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    z-index: -1;
 }
 
 .footer_middle p{
@@ -58,6 +61,7 @@
     font-size: 1.3rem;
     background-color: #A76E64;
     color: white;
+    z-index: -1;
 }
 
 .footer_right ul{

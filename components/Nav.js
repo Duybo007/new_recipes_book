@@ -3,23 +3,22 @@ import styles from '../styles/Nav.module.css'
 import { BiSearchAlt } from 'react-icons/bi';
 import { BsFacebook, BsInstagram, BsPinterest } from 'react-icons/bs';
 import Log from './Log';
-import { login, logout, openModal, openSignin, openSignup, searchWord, selectUser } from '../features/search/searchSlice';
+import { login, logout, openModal, openSignin, openSignup, searchRecipes, searchWord, selectUser } from '../features/search/searchSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, signOut } from "firebase/auth";
-
+import { apiKey } from '../firebase'
 
 function Nav() {
-    
-
-    
     const [showSearch, setShowSearch] = useState(false);
     const dispatch = useDispatch()
- 
     const searchRef =useRef(null)
-    const searchRecipe = (e) => {
+
+    const searchRecipe = async(e) => {
         if( e.key == "Enter"){
             e.preventDefault()
-            dispatch(searchWord(searchRef.current.value))
+            const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=16&query=${searchRef.current.value}`)
+            const recipeDatas = await data.json()
+            dispatch(searchRecipes(recipeDatas.results))
         }
     }
     const signUp = () =>{
@@ -47,6 +46,7 @@ function Nav() {
         })
         return unsubscribe
       }, [dispatch])
+
   return (
     <div className={styles.nav}>
         <div className={styles.nav_left}>
@@ -93,7 +93,7 @@ function Nav() {
                     ) : (
                         <div className={styles.nav_right_log_links}>
                             <a className={styles.nav_link} onClick={() => signOut(auth)}>Sign Out</a>
-                            <a className={styles.nav_link} >My Recipes</a>
+                            <a href='#popup-article' className={styles.nav_link} >My Recipes</a>
                         </div>
                     )}
                     

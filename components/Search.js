@@ -5,7 +5,7 @@ import styles from '../styles/Search.module.css'
 import Recipes from './Recipes'
 import * as XLSX from 'xlsx/xlsx.mjs'
 import Ingredients from './Ingredients'
-import { apiKey } from '../firebase'
+
 
 // to find similar in gredients from user's input
 function getSimilarValues(array, input) {
@@ -19,13 +19,12 @@ function getSimilarValues(array, input) {
     return similarValues;
   }
 function Search() {
-    const searchWord = useSelector(selectSearch)
+    const searchRecipes = useSelector(selectSearch)
     const recipesIngre = useSelector(selectRecipesIngre)
-    const [recipes, setRecipes] = useState([])
     const searchRef =useRef(null)
     const [suggestIngre, setSuggestIngre] = useState()
     // check if recipes or recipesIngre is empty, display if not empty
-    const recipesDisplay = recipes?.length > 0 ? recipes : recipesIngre.length > 0 ? recipesIngre : []
+    const recipesDisplay = searchRecipes?.length > 0 ? searchRecipes : recipesIngre.length > 0 ? recipesIngre : []
 
     let url = "https://spoonacular.com/application/frontend/downloads/top-1k-ingredients.csv"
     const array =[]
@@ -55,15 +54,6 @@ function Search() {
         e.preventDefault()
         setSuggestIngre(getSimilarValues(ingre, searchRef.current.value))
     }
-
-    const getSearch = async() =>{
-        const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=16&query=${searchWord}`)
-        const recipeDatas = await data.json()
-        setRecipes(recipeDatas.results)
-    }
-    useEffect(()=>{
-        getSearch()
-    } ,[searchWord])
   return (
     <div className={styles.search_container}>
         <Recipes id='recipes' recipes={recipesDisplay}/>

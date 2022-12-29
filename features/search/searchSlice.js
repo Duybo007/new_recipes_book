@@ -4,7 +4,7 @@ export const userSlice = createSlice({
     name : "user",
     initialState : {
         user: null,
-        search: null,
+        search_recipes: [],
         my_recipes: [],
         recipes_ingre:[],
         modal: null,
@@ -32,8 +32,8 @@ export const userSlice = createSlice({
         openSignin: (state) => {
             state.signup = null
         },
-        searchWord: (state, action) => {
-            state.search = action.payload
+        searchRecipes: (state, action) => {
+            state.search_recipes = action.payload
         },
         recipesIngre: (state, action ) => {
             state.recipes_ingre = action.payload
@@ -41,11 +41,11 @@ export const userSlice = createSlice({
     }
 })
 
-export const { login, logout, myRecipes, openModal, closeModal, openSignup, openSignin, searchWord, recipesIngre } = userSlice.actions;
+export const { login, logout, myRecipes, openModal, closeModal, openSignup, openSignin, searchRecipes, recipesIngre } = userSlice.actions;
 
 export const selectUser = (state) => state.user.user;
 
-export const selectSearch = (state) => state.user.search;
+export const selectSearch = (state) => state.user.search_recipes;
 
 export const selectMyRecipe = (state) => state.user.my_recipes;
 

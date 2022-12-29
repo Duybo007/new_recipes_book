@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { recipesIngre } from '../features/search/searchSlice';
+import { recipesIngre, searchRecipes } from '../features/search/searchSlice';
 import { apiKey } from '../firebase';
 import styles from '../styles/Ingredients.module.css'
 import SelectedIngredients from './SelectedIngredients';
@@ -31,6 +31,7 @@ function Ingredients({suggestIngre}) {
     const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${ingredients}&number=16`);
     const data = await response.json();
     dispatch(recipesIngre(data))
+    dispatch(searchRecipes([]))
   }
   useEffect(() => {
     findRecipes();
