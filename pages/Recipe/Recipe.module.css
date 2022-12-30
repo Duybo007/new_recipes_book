@@ -198,3 +198,35 @@
 .disable{
     opacity: 0.4;
 }
+
+@media (max-width: 600px) {
+    .detail{
+        flex-direction: column;
+    }
+    .left{
+        width: 100%;
+    }
+    .left_middle_img{
+        width: 100%;
+    }
+    .vegan img{
+        height: 100%;
+        width: auto;
+    }
+    .middle{
+        height: 100vh;
+        width: 100%;
+    }
+    .middle_top{
+        height: 25%;
+    }
+    .middle_bottom{
+        height: 75%;
+    }
+    .right{
+        width: 100%;
+    }
+    .serving_left {
+        font-size: 1.5rem;
+    }
+}

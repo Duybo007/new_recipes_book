@@ -23,6 +23,18 @@ function recipe() {
         
     }, [params.recipe])
     console.log(detail)
+    function minutesToHoursString(minutes) {
+        let hours = Math.floor(minutes / 60);
+        let remainingMinutes = minutes % 60;
+      
+        if (hours === 0) {
+          return `${remainingMinutes} min`;
+        } else if (remainingMinutes === 0) {
+          return `${hours} h`;
+        } else {
+          return `${hours} h ${remainingMinutes} min`;
+        }
+      }
   return (
     <>
         <Head>
@@ -39,7 +51,7 @@ function recipe() {
                     </div>
                     <div className={styles.time}>
                         <div className={styles.time_top}>
-                            <h1>{detail.readyInMinutes} min</h1>
+                            <h1>{minutesToHoursString(detail.readyInMinutes)}</h1>
                         </div>
                         <div className={styles.time_bottom}>
                             <MdOutlineTimer/>

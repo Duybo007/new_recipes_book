@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectMyRecipe, selectUser } from '../features/search/searchSlice';
 import {arrayUnion, doc, updateDoc} from 'firebase/firestore'
 import { db } from '../firebase'
+import Link from 'next/link';
 
 function Card({img, title, id}) {
     const [liked, setLiked] = useState(false)
@@ -64,7 +65,7 @@ function Card({img, title, id}) {
     }, [myRecipes])
 
   return (
-    // <Link className={styles.recipe} key={recipe.id} href={"/Recipe/"+recipe.id}>
+    
     <div className={styles.wrapper}>
         <div className={`${styles.box} ${styles.zoom_in}`}>
         { user ? (
@@ -74,12 +75,11 @@ function Card({img, title, id}) {
           <AiOutlineHeart onClick={savedRecipes} />
         )
         ) : null }
-            <img src={img} alt="Recipes img"/>
+            <Link  key={id} href={"/Recipe/"+ id}><img src={img} alt="Recipes img"/>
             <h2>{title}</h2>
-            <p>{pickRandomItem(quotes)}</p>
+            <p>{pickRandomItem(quotes)}</p></Link>
         </div>
     </div>
-    // </Link >
   )
 }
 
