@@ -12,7 +12,7 @@ function getSimilarValues(array, input) {
     let similarValues = [];
     for (let i = 0; i < array.length; i++) {
       let value = array[i]["v"];
-      if (value?.includes(input)) {
+      if (value?.includes(input.toLowerCase())) {
         similarValues.push(value);
       }
     }

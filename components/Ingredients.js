@@ -45,6 +45,7 @@ function Ingredients({suggestIngre}) {
         <input
         value={i} 
         onChange={handleChange}
+        checked={selectedOptions.includes(i)}
         type="checkbox"/>
         <span className={styles.w3docs}></span>
         </label>

@@ -33,7 +33,7 @@
 }
 .selected{
     overflow-y: auto;
-    max-height: 120px;
+    max-height: 110px;
 }
 @media (max-width: 500px) {
     .selectedIngredients h2{
