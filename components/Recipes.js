@@ -8,7 +8,6 @@ import Card from './Card'
 function Recipes({recipes}) {
     const search = useSelector(selectSearch)
     const recipeIngre = useSelector(selectRecipesIngre)
-    console.log(recipes)
     // if(!search || !recipeIngre) return null
   return (
     <div id='recipes' className={styles.recipes}>

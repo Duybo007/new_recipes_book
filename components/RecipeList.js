@@ -15,10 +15,8 @@ function RecipeList() {
         onSnapshot(doc(db, 'users', `${user?.email}`), (doc)=> {
           setRecipes(doc.data()?.savedRecipes)
           dispatch(myRecipes(doc.data()?.savedRecipes))
-          console.log(doc.data()?.savedRecipes)
         })
     }, [user?.email])
-    console.log(recipes)
     const recipeID = doc(db , 'users', `${user?.email}`)
     const myRecipeList = useSelector(selectMyRecipe)
     const deleteRecipes = async (passedID) => {

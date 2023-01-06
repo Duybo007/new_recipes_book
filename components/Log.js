@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import styles from '../styles/Log.module.css'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import {setDoc, doc} from 'firebase/firestore'
+import {setDoc, doc, onSnapshot} from 'firebase/firestore'
 import { db } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal, openSignin, openSignup, selectModal, selectSignup } from '../features/search/searchSlice';
@@ -10,20 +10,32 @@ function Log() {
 	const openModal = useSelector(selectModal)
 	const emailRef = useRef(null)
   	const passwordRef = useRef(null)
+	const emailSignUpRef = useRef(null)
+  	const passwordSignUpRef = useRef(null)
 	const auth = getAuth()
 
-	const register = (e) =>{
+	function extractErrorMessage(errorString) {
+		const startIndex = errorString.indexOf('(') + 1;
+		const endIndex = errorString.indexOf(')');
+		const errorCode = errorString.substring(startIndex, endIndex);
+		const errorMessage = errorCode.replace('auth/', '').replace(/-/g, ' ');
+		return errorMessage;
+	}
+
+	const register = async(e) =>{
 		e.preventDefault()
+	
 		createUserWithEmailAndPassword(auth,
-		  emailRef.current.value,
-		  passwordRef.current.value)
-		  setDoc(doc(db, 'users', emailRef.current.value), {
-			savedRecipes: []
-		  })
+				emailSignUpRef.current.value,
+				passwordSignUpRef.current.value)
+				setDoc(doc(db, 'users', emailSignUpRef.current.value), {
+				  savedRecipes: []
+				})
 		.then((authUser) => {
-		  console.log(authUser)
-		}).catch((error) => {
-		  alert(error.message)
+		  console.log(authUser)	
+		})
+		.catch((error) => {
+		  console.log(extractErrorMessage(error.message))
 		})
 		dispatch(closeModal())
 	  }
@@ -33,9 +45,10 @@ function Log() {
 		  emailRef.current.value,
 		  passwordRef.current.value
 		).then((authUser) => {
-		  console.log(authUser)
+		  	console.log(authUser)
 		}).catch((error) => {
-		  console.log(error.message)
+			alert(extractErrorMessage(error.message))
+		  	console.log(error.message)
 		})
 		dispatch(closeModal())
 	  }
@@ -63,8 +76,8 @@ function Log() {
 					</div>
 					<span>or use your email for registration</span> */}
 					{/* <input type="text" placeholder="Name" /> */}
-					<input ref={emailRef} type="email" placeholder="Email" />
-					<input ref={passwordRef} type="password" placeholder="Password" />
+					<input ref={emailSignUpRef} type="email" placeholder="Email" />
+					<input ref={passwordSignUpRef} type="password" placeholder="Password" />
 					<button onClick={register}>Sign Up</button>
 				</form>
 			</div>
