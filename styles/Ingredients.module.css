@@ -5,7 +5,7 @@
 }
 
 .ingredient_list{
-    height: 240px;
+    height: 300px;
     overflow: auto;
     width: 50%;
 }
@@ -69,6 +69,6 @@
 
 @media (max-width: 1000px){
     .ingredient_list{
-        height: 230px;
+        height: 300px;
     }
 }

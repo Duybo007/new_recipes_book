@@ -171,9 +171,17 @@
         width: 100%;
     }
 }
+@media (max-width: 800px){
+    .search_left_empt{
+        width: 40%;
+    }
+    .search_left_ingre{
+        width: 60%;
+        padding-right: 1rem;
+    }
+}
 @media (max-width: 500px) {
     .search_left_ingre{
-        width: 50%;
         padding-top: 1rem;
     }
 }

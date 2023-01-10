@@ -224,5 +224,15 @@
 	width: 40px;
 } */
 @media (max-width: 500px){
-
+	.overlay_container{
+		left: 0;
+		width: 0;
+	}
+	.sign_up_container{
+		left: -100%;
+		width: 100%;
+	}
+	.sign_in_container{
+		width: 100%;
+	}
 }
