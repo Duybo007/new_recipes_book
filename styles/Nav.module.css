@@ -198,6 +198,7 @@
     .nav_search{
         flex-direction: column;
         justify-content: flex-start;
+        gap: 1rem;
     }
     .nav_right_log_links{
         gap: 1rem;
