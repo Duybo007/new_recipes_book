@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styles from '../styles/Nav.module.css'
 import { BiSearchAlt } from 'react-icons/bi';
-import { BsFacebook, BsInstagram, BsPinterest } from 'react-icons/bs';
 import Log from './Log';
 import { login, logout, openModal, openSignin, openSignup, searchRecipes, searchWord, selectUser } from '../features/search/searchSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, signOut } from "firebase/auth";
 import { apiKey } from '../firebase'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 function Nav() {
-    const [showSearch, setShowSearch] = useState(false);
     const dispatch = useDispatch()
     const searchRef =useRef(null)
+    const router = useRouter()
 
     const searchRecipe = async(e) => {
         if( e.key == "Enter"){
@@ -19,6 +20,7 @@ function Nav() {
             const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=16&query=${searchRef.current.value}`)
             const recipeDatas = await data.json()
             dispatch(searchRecipes(recipeDatas.results))
+            router.push('/#recipes')
         }
     }
     const signUp = () =>{
@@ -49,43 +51,28 @@ function Nav() {
 
   return (
     <div className={styles.nav}>
-        <div className={styles.nav_left}>
-            <div className={styles.nav_left_top}>
-                <img src='/food1.jpg' alt='food'/>
-                <div className={styles.nav_search}>
-                    <div className={styles.nav_search_icon}>
-                        <form>
-                            <div className={`${styles.search} ${showSearch && styles.show_search}`}>
-                                <BiSearchAlt 
-                                onClick={() => setShowSearch(true)}
-                                onBlur={() => {setShowSearch(false);}}/>
-                                <input
-                                onKeyPress={searchRecipe}
-                                ref={searchRef}
-                                type="text"
-                                placeholder="Search"
-                                onBlur={() => {setShowSearch(false)}}
-                            />
-                            </div>
-                        </form>
-                    </div>
-                    <div className={styles.nav_search_social}>
-                        <BsFacebook/>
-                        <BsInstagram/>
-                        <BsPinterest/>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.nav_left_bottom}>
-                <p>what's</p>
-            </div>
+        <div className={styles.nav_logo}>
+            <Link href={"/"}><img src='/logo.png'/></Link>
         </div>
-        <div className={styles.nav_right}>
-            <div className={styles.nav_right_logo}>
-                <img src='/logo.png'/>
+        
+        <ul className={styles.nav_links}>
+            <li><a href="#">Recipes</a></li>
+            <li><a href="#">Cuisines</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">News</a></li>
+        </ul>
+        <form>
+            <div className={styles.nav_search}>
+                    <BiSearchAlt/>
+                    <input
+                    onKeyPress={searchRecipe}
+                    ref={searchRef}
+                    type="text"
+                    placeholder="Search"
+                    />
             </div>
-            <div className={styles.nav_right_log}>
-                    {!user ? (
+        </form>
+            {!user ? (
                         <div className={styles.nav_right_log_links}>
                             <a className={styles.nav_link} onClick={signUp}>Sign Up</a>
                             <a className={styles.nav_link} onClick={signIn}>Sign In</a>
@@ -95,17 +82,8 @@ function Nav() {
                             <a className={styles.nav_link} onClick={() => signOut(auth)}>Sign Out</a>
                             <a href='#popup-article' className={styles.nav_link} >My Recipes</a>
                         </div>
-                    )}
-                    
-                    <div className={styles.nav_quote}>
-                        <p>don't know what to cook?</p>
-                        <p>we have all the answers</p>
-                        <p>welcome to our recipe book</p>
-                        <p>thousand meals await</p>
-                    </div>
-            </div>
-            <img className={styles.bg_img} src='/food2.png'/>
-        </div>
+            )}
+
         <Log key="recipe"/>
     </div>
   )

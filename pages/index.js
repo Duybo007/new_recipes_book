@@ -8,7 +8,7 @@ import RecipeList from '../components/RecipeList'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  return (
+    return (
     <>
       <Head>
         <title>What's for dinner</title>

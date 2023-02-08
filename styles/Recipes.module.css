@@ -1,8 +1,23 @@
 .recipes{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 0 3rem;
+    margin-top: 80px;
 }
 
+.recipes_page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+    padding: 3rem;
+    background-color: #ffa500;
+}
+.recipes_page h1{
+    font-size: 3rem;
+    color: #005AFF
+}
 @media (max-width: 500px){
     .recipes{
         display: grid;

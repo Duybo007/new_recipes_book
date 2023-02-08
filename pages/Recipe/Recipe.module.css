@@ -1,232 +1,146 @@
 .detail{
     display: flex;
-    width: 100%;
-    height: 100vh;
-}
-.left{
-    width: 30%;
-    height: 100%;
-    background-color: white;
-}
-.left_top{
-    display: flex;
-    width: 100%;
-    height: 35%;
-}
-.logo{
-    width: 50%;
-}
-.logo img{
-    width: 100%;
-    cursor: pointer;
-}
-.time{
-    width: 50%;
-    background-color: #232148;
-    color: white;
-}
-.time_top{
-    height: 50%;
-    background-color: #1B192C;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto Mono';
-}
-.time_bottom{
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-}
-.left_middle{
-    background-color: aqua;
-    width: 100%;
-    height: 45%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-.left_middle_img{
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-.left_middle_img img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.left_bottom{
-    height: 20%;
-    display: flex;
-}
-.vegan{
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #25640e;
-}
-.vegan img{
-    width: 100%;
-}
-.vegan_des{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #164704;
-    color: white;
-    font-size: 4rem;  ;
-}
-
-.middle{
-    width: 40%;
-    color: white;
-}
-.middle_top{
-    height: 35%;
-    background-color: white;
-    font-family: 'Roboto Mono';
-    font-size: 1.7rem;
-}
-.middle_top button{
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: 0px;
-    color: white;
-    font-size: 4rem;
-    font-family: 'Roboto Mono';
-    cursor: pointer;
-    transition: 0.5s ease-out;
-}
-.middle_top button:hover{
-    opacity: 1;
-}
-.instruction{
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.instruction button{
-    background-color: #E24D2F;
-}
-.ingredients{
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.ingredients button{
-    background-color: #E24D2F;
-}
-.middle_bottom{
-    background-color: #2E3280;
-    padding: 2rem;
-    height: 65%;
-    font-family: 'Roboto Mono';
-    font-size: 1.5rem;
-    display: flex;
     flex-direction: column;
+    width: 100%;
+    padding-top: 70px;
+    font-family: 'Roboto Mono';
+    color: #444444;
+}
+
+.banner{
+    height: 60vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.banner img{
+    width: 100%;
+    object-fit: contain;
+}
+
+.banner_icons{
+    position: absolute;
+    bottom: 5%;
+    left: 10%;
+    display: flex;
     gap: 1rem;
-    overflow-y: auto;
+    cursor: pointer;
 }
 
-.right{
-    width: 30%;
-}
-.right_top{
-    height: 35%;
-    width: 100%;
-    background-color: #C5D437;
-    display: flex;
-    font-family: 'Roboto Mono';
-    color: white;
-}
-.serving_left{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;    
-}
-.serving_left p{
-    text-orientation: upright;
-    writing-mode: vertical-rl;
-}
-.serving_right{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    background-color: #B65BCA;
-}
-.right_middle{
-    height: 33%;
-    background-color: #628AF9;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 6rem;
-}
-.right_middle h1{
-    font-size: 4rem;
-}
-.right_bottom{
-    height: 32%;
-    background-color: #EAA052;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 6rem;
-}
-.right_bottom h1{
-    font-size: 4rem;
-}
-.disable{
-    opacity: 0.4;
+.banner_icons svg{
+    font-size: 2rem;
 }
 
-@media (max-width: 600px) {
-    .detail{
-        flex-direction: column;
-    }
-    .left{
-        width: 100%;
-    }
-    .left_middle_img{
-        width: 100%;
-    }
-    .vegan img{
-        height: 100%;
-        width: auto;
-    }
-    .middle{
-        height: 100vh;
-        width: 100%;
-    }
-    .middle_top{
-        height: 25%;
-    }
-    .middle_bottom{
-        height: 75%;
-    }
-    .right{
-        width: 100%;
-    }
-    .serving_left {
-        font-size: 1.5rem;
-    }
+.banner_icon{
+    background-color: white;
+    border-radius: 100%;
+    padding: 1rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+}
+
+.banner_icon:hover{
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.detail_recipe{
+    display: flex;
+    padding: 3rem 7rem;
+    gap: 3rem;
+}
+
+.summary{
+    background-color: #FEF3ED;
+    padding: 2rem;
+    border-radius: 20px;
+    font-size: 20px;
+    max-width: 800px;
+    line-height: 27px;
+    margin-bottom: 3rem;
+}
+
+.detail_recipe_ingre{
+    margin : 2rem 0;
+    max-width: 800px;
+}
+
+.detail_recipe_ingre h1{
+    margin-bottom: 1rem;
+}
+.ingre_list{
+    line-height: 3;
+    margin-left: 1rem;
+}
+
+.ingre_list li{
+    list-style-type: none;
+    counter-increment: item;
+    font-size: 20px;
+}
+
+.ingre_list li::before{
+    content: counter(item);
+    display: inline-block;
+    width: 29px;
+    height: 30px;
+    font-family: "Indie Flower", cursive;
+    margin-right: 5px;
+    background-color: #f9dd94;
+    color: #7eb4e2;
+    font-weight: bold;
+    font-size: 140%;
+    padding: 0 8px 8px;
+    border-radius: 3px;
+    line-height: 1.3;
+}
+
+.detail_recipe_right{
+    border: 1px solid gray;
+    border-radius: 20px;
+    overflow: hidden;
+    height: max-content;
+    padding-bottom: 2rem;
+}
+
+.detail_recipe_name{
+    background-color: #3D2709;
+    padding : 2rem;
+    color: white;
+}
+
+.detail_recipe_detail{
+    padding: 1.5rem 3rem;
+    font-size: 25px;
+}
+
+.detail_recipe_detail ul{
+    list-style-type: none;
+    line-height: 3;
+}
+
+.detail_recipe_detail ul li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail_recipe_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail_recipe_btn button{
+    padding: 1rem 3rem;
+    background-color: #F48B52;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.detail_recipe_btn button:hover{
+    opacity: 0.5;
 }

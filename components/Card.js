@@ -4,10 +4,10 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { selectMyRecipe, selectUser } from '../features/search/searchSlice';
 import {arrayUnion, doc, updateDoc} from 'firebase/firestore'
-import { db } from '../firebase'
+import { apiKey, db } from '../firebase'
 import Link from 'next/link';
 
-function Card({img, title, id}) {
+function Card({img, title, id, recipe}) {
     const [liked, setLiked] = useState(false)
     const quotes = ["First, we eat. Then, we do everything else",
                     "Lifes is uncertain. Eat dessert first",
@@ -64,21 +64,76 @@ function Card({img, title, id}) {
       })
     }, [myRecipes])
 
+  const [recipeInfo,setRecipeInfo] =useState(null)
+  useEffect(()=> {
+    const getRecipeInfo = async() =>{
+      let res = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`)
+      const data = await res.json()
+      // console.log(data)
+      setRecipeInfo(data)
+    }
+    getRecipeInfo()
+  },[])
+
+  function minutesToHoursString(minutes) {
+    let hours = Math.floor(minutes / 60);
+    let remainingMinutes = minutes % 60;
+  
+    if (hours === 0) {
+      return `${remainingMinutes} min`;
+    } else if (remainingMinutes === 0) {
+      return `${hours} h`;
+    } else {
+      return `${hours} h ${remainingMinutes} min`;
+    }
+  }
   return (
     
-    <div className={styles.wrapper}>
-        <div className={`${styles.box} ${styles.zoom_in}`}>
-        { user ? (
-        liked ? (
-          <AiFillHeart onClick={()=>deleteRecipes(id)} className={styles.liked}/>
-        ) : (
-          <AiOutlineHeart onClick={savedRecipes} />
-        )
-        ) : null }
-            <Link  key={id} href={"/Recipe/"+ id}><img src={img} alt="Recipes img"/>
-            <h2>{title}</h2>
-            <p>{pickRandomItem(quotes)}</p></Link>
+    // <div className={styles.wrapper}>
+    //     <div className={`${styles.box} ${styles.zoom_in}`}>
+    //     { user ? (
+    //     liked ? (
+    //       <AiFillHeart onClick={()=>deleteRecipes(id)} className={styles.liked}/>
+    //     ) : (
+    //       <AiOutlineHeart onClick={savedRecipes} />
+    //     )
+    //     ) : null }
+    //         <Link  key={id} href={"/Recipe/"+ id}><img src={img} alt="Recipes img"/>
+    //         <h2>{title}</h2>
+    //         <p>{pickRandomItem(quotes)}</p></Link>
+    //     </div>
+    // </div>
+    <div href="" className={styles.card}>
+      <Link  key={id} href={"/Recipe/"+ id}><img src={img} className={styles.card__image} alt="" /></Link>
+      <div className={styles.card__overlay}>
+        <div className={styles.card__header}>
+          <svg className={styles.card__arc} xmlns="http://www.w3.org/2000/svg">
+            <path />
+          </svg>
+          <div className={styles.liked}>
+          { user ? (
+            liked ? (
+              <AiFillHeart onClick={()=>deleteRecipes(id)} className={styles.liked}/>
+            ) : (
+              <AiOutlineHeart onClick={savedRecipes} className={styles.liked}/>
+            )
+            ) : null 
+          }
+          </div>
+          <div className={styles.card__header_text}>
+          <Link  key={id} href={"/Recipe/"+ id}><h3 className={styles.card__title}>{title}</h3></Link>
+            {recipe.missedIngredientCount? (
+              <span className={styles.card__status}>Missing Ingredients: {recipe.missedIngredientCount}</span>
+            ) : (
+              <>
+                <span className={styles.card__status}>Servings: {recipeInfo?.servings} | </span>
+                <span className={styles.card__status}>Ready In: {minutesToHoursString(recipeInfo?.readyInMinutes)} </span>
+              </>
+            ) }
+          </div>
         </div>
+        <p className={styles.card__description}>{pickRandomItem(quotes)}</p>
+      </div>
     </div>
   )
 }

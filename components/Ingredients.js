@@ -16,6 +16,7 @@ function Ingredients({suggestIngre}) {
       setSelectedOptions(selectedOptions.filter(option => option !== value));
     }
   }
+  //if checked, add this ingredient into array selectedOptions
 
   const RemoveAll = () =>{
     setSelectedOptions([])
@@ -24,6 +25,7 @@ function Ingredients({suggestIngre}) {
       checkbox.checked = false;
     });
   }
+  //remove all ingredients
 
   const dispatch = useDispatch()
   const findRecipes = async() => {
@@ -32,6 +34,7 @@ function Ingredients({suggestIngre}) {
     const data = await response.json();
     dispatch(recipesIngre(data))
     dispatch(searchRecipes([]))
+    //empty searchRecipes
   }
   useEffect(() => {
     findRecipes();
@@ -43,10 +46,10 @@ function Ingredients({suggestIngre}) {
       {suggestIngre?.map((i)=> (
         <label className={styles.main}>{i}
         <input
-        value={i} 
-        onChange={handleChange}
-        checked={selectedOptions.includes(i)}
-        type="checkbox"/>
+          value={i} 
+          onChange={handleChange}
+          checked={selectedOptions.includes(i)}
+          type="checkbox"/>
         <span className={styles.w3docs}></span>
         </label>
         ))}

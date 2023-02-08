@@ -1,115 +1,59 @@
 .nav{
     width: 100vw;
     display: flex;
-    overflow: hidden;
-}
-
-.nav_left{
-    width: 50%;
-}
-
-.nav_left_top{
-    display: flex;
-    height: 253.75px;
-}
-
-.nav_left_top img{
-    width: 50%;
-    object-fit: cover;
-}
-
-.nav_search{
-    background-color: #A76E64;
-    width: 50%;
-    font-family: 'Roboto Mono';
-}
-
-.nav_left_bottom{
-    background-color: #F1EBE6;
-    height: 253.75px;
-    font-size: 23rem;
-    padding-left: 2rem;
-}
-
-.nav_left_bottom p{
-    line-height: 200px;
-}
-
-.nav_search{
-    color: white;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.nav_search_social{
-    display: flex;
-    gap: 15px;
-    padding-top: 5px;
-    font-size: 20px;
-}
-
-.nav_search_social svg{
-    cursor: pointer;
-    transition: 0.5s ease-out;
-}
-
-.nav_search_social svg:hover{
-    scale: 1.5;
-}
-
-.search {
-    display: flex;
-    gap: 0.4rem;
+    max-width: 1920px;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
-    padding: 0.2rem;
-    padding-left: 0.5rem;
-    margin-right: 8%;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    background-color: white;
+    height: 70px;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
 }
 
-.search > svg {
-    color: white;
-    font-size: 1.2rem;
-    width: 25px;
-    cursor: pointer;
+.nav_logo{
+    height: 70px;
+    width: auto;
 }
-.search{
+
+.nav_logo img{
+    height:100% ;
+}
+
+.nav_links{
     display: flex;
-    justify-content: flex-start;
-}
-.search > input {
-    width: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s ease-in-out;
-    background-color: transparent;
-    border: none;
-    color: white
-}
-.search > input:focus{
-    outline: none;
+    font-family: 'Roboto Mono';
+    gap: 2rem;
+    font-weight: bold;
+    font-size: 20px;
+    list-style-type: none;
+    color: #005AFF
 }
 
-.show_search {
-    background-color: #da9286;
-    z-index: 99;
-}   
-
-.show_search > input {
-    width: 100%;
-    opacity: 1;
-    visibility: visible;
-    padding: 0.3rem;
-    z-index: 99;
-}
-.nav_right{
-    display: flex;
+.nav_links a{
     position: relative;
 }
 
+.nav_links a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #005AFF;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
+.nav_links a:hover:after { 
+    width: 100%; 
+    left: 0; 
+}
+
 .nav_right_log{
-    width: 50%;
     display: flex;
     font-size: 1.5rem;
     padding-top: 1rem;
@@ -122,7 +66,7 @@
 .nav_right_log_links{
     display: flex;
     gap: 1.5rem;
-    position: absolute;
+    font-size: 20px;
 }
 
 .nav_link{
@@ -131,6 +75,7 @@
     position: relative;
     font-family: 'Roboto Mono';
 }
+
 
 .nav_link::before {
     content: '';
@@ -147,59 +92,34 @@
 .nav_link:hover::before {
     bottom: 0;
     height: 100%;
-  }
+}
 
-.bg_img{
+.nav_search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.nav_search input{
+    outline: none;
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+
+.nav_search svg{
     position: absolute;
-    width: 150%;
-    right: -120%;
-    top: -30%;
-    z-index: -2;
-    animation: rotation 100s infinite linear;
+    left: 3%;
 }
 
-@keyframes rotation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(359deg);
-    }
-}
-
-.nav_right_logo{
-    width: 50%;
-    padding-top: 2rem;
-}
-
-.nav_right_logo img{
-    width: 80%;
-}
-
-.nav_quote{
-    position: absolute;
-    bottom: 10%;
-}
 
 @media (max-width: 1000px) {
     .nav{
         flex-direction: column-reverse;
     }
-    .nav_left_top{
-        width: 100vw;
-    }
-    .bg_img{
-        width: 90%;
-        right: -60%;
-    }
-    .nav_left_bottom{display: none;}
+
 }
 @media (max-width: 500px) {
-    .nav_search{
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 1rem;
-    }
     .nav_right_log_links{
         gap: 1rem;
         font-size: 1.2rem;

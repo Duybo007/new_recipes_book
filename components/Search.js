@@ -5,9 +5,10 @@ import styles from '../styles/Search.module.css'
 import Recipes from './Recipes'
 import * as XLSX from 'xlsx/xlsx.mjs'
 import Ingredients from './Ingredients'
+import Popular from './Popular'
 
 
-// to find similar in gredients from user's input
+// to find similar ingredients from user's input
 function getSimilarValues(array, input) {
     let similarValues = [];
     for (let i = 0; i < array.length; i++) {
@@ -56,47 +57,44 @@ function Search() {
     }
   return (
     <div className={styles.search_container}>
-        <Recipes id='recipes' recipes={recipesDisplay}/>
-        <div className={styles.search}>
-            <div className={styles.search_left}>
-                <div className={styles.search_left_top}>
-                    <img src='/food3.jpg' alt='food'/>
-                    <div className={styles.search_left_empty}/>
-                    <form onSubmit={handleSubmit} className={styles.search_left_ingre}>
-                        <h1>what's in your pantry</h1>
-                        <input
-                        ref={searchRef}
-                        placeholder='Search'
-                        type='text'/>
-                    </form>
-                </div>
-                <div className={styles.search_left_bottom}>
-                    <div className={`${styles.search_left_empty_bottom} ${styles.bot}`}>
-                        {!suggestIngre? (
-                            <img src='/dessert.jpg'/>
-                        ) : (
-                            <Ingredients suggestIngre={suggestIngre}/>
-                        )}
-                    </div>
-                    <div className={styles.search_left_ingre_list}>
-                    
-                    
-                    </div>
-                </div>
+        <div className={styles.search_hero_wrapper}>
+            <div className={styles.search_hero}>
+                <p>Wake Up early,</p>
+                <p>Eat Fresh & Healthy</p>
             </div>
-            <div className={styles.search_middle}>
-                <img src='/cream.png'/>
+            <div className={styles.search_hero_text}>
+                <p>Aside from their natural good tase and great crunchy texture alongside wonderful colors and fragrances, eating a large serving of fresh.</p>
             </div>
-            <div className={styles.search_right}>
-                <div className={styles.search_right_top}>
-                    <p>for dinner</p>
-                </div>
-                <div className={styles.search_right_bottom}>
-                    <img src='/drinks.png'/>
-                    <p>Delicious and refreshing cocktail recipes to enjoy any time of year</p>
-                </div>
-            </div>
+            <img src='/tomato.jpg'/>
         </div>
+        <Popular/>
+        {recipesDisplay.length > 0? (
+            <Recipes id='recipes' recipes={recipesDisplay}/>
+        ): (null)}
+        
+        <div className={styles.search_ingre}>
+            <div className={styles.search_input}>
+                <p>Ingredients</p>
+                <form onSubmit={handleSubmit} className={styles.search_input_form}>
+                    <p>what's in your pantry</p>
+                    <input
+                    ref={searchRef}
+                    placeholder='Search'
+                    type='text'/>
+                </form>
+            </div>
+            <img src='/ingre.jpg' alt='ingredient'/>
+        </div>
+        
+        <div>
+            {!suggestIngre? (
+                <></>
+                ) : (
+                <Ingredients suggestIngre={suggestIngre}/>
+            )}
+        </div>
+        
+
     </div>
   )
 }
