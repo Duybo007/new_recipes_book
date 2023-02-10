@@ -7,10 +7,13 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import {BsDownload, BsPrinter } from 'react-icons/bs'
 import {GiKnifeFork} from 'react-icons/gi'
 import Nav from '../../components/Nav'
+import { useSelector } from 'react-redux'
+import { selectAvailableIngres, selectUser } from '../../features/search/searchSlice'
 
 function recipe() {
     const router = useRouter()
-    const [activeTab, setActiveTab] = useState("instructions")
+    const pantryIngre = useSelector(selectAvailableIngres)
+    const user = useSelector(selectUser)
     const [detail, setDetail]= useState({})
     let params = router.query
     const hero = [
@@ -39,6 +42,8 @@ function recipe() {
         
     }, [params.recipe])
     console.log(detail)
+    console.log(pantryIngre)
+
     function minutesToHoursString(minutes) {
         let hours = Math.floor(minutes / 60);
         let remainingMinutes = minutes % 60;
@@ -153,7 +158,16 @@ function recipe() {
                         <div>
                             <ol className={styles.ingre_list}>
                                 {detail.extendedIngredients?.map((i)=> (
-                                <li key={i.id}>{i.original}</li>) )}
+                                <>
+                                    <li key={i.id}>{i.original}</li>
+                                    {user? (
+                                        pantryIngre.includes(i.name)? (
+                                            <p className={styles.available}>Available</p>
+                                        ) : (
+                                            <p className={styles.missing}>Missing</p>
+                                        )
+                                    ) :(null)}
+                                </>) )}
                             </ol>
                         </div>
                     </div>

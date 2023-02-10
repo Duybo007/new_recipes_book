@@ -14,12 +14,33 @@
     color: black;
 }
 
-.selectedIngredients_remove{
+.selectedIngredients_btn_pantry{
+    padding: 0.5rem 1rem;
+    background-color: hsla(196, 61%, 58%, .75);
+    border: 4px solid hsla(196, 61%, 58%, .75);
+    color: white;
+    font-weight: bold;
     cursor: pointer;
+    font-size: 20px;
+}
+
+.selectedIngredients_btn_pantry:hover{
+    background-color: hsla(196, 61%, 58%, .99);
+}
+
+.selectedIngredients_remove{
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 4px solid red;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
 }
 
 .selectedIngredients_remove:hover{
-    color: red;
+    color: white;
+    background-color: red;
 }
 
 .selectedIngredients_btn{

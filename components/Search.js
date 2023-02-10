@@ -6,6 +6,7 @@ import Recipes from './Recipes'
 import * as XLSX from 'xlsx/xlsx.mjs'
 import Ingredients from './Ingredients'
 import Popular from './Popular'
+import { useRouter } from 'next/router'
 
 
 // to find similar ingredients from user's input
@@ -22,8 +23,9 @@ function getSimilarValues(array, input) {
 function Search() {
     const searchRecipes = useSelector(selectSearch)
     const recipesIngre = useSelector(selectRecipesIngre)
-    const searchRef =useRef(null)
     const [suggestIngre, setSuggestIngre] = useState()
+    const router = useRouter()
+    const searchRef =useRef(null)
     // check if recipes or recipesIngre is empty, display if not empty
     const recipesDisplay = searchRecipes?.length > 0 ? searchRecipes : recipesIngre.length > 0 ? recipesIngre : []
 
@@ -54,6 +56,7 @@ function Search() {
     const handleSubmit = (e) => {
         e.preventDefault()
         setSuggestIngre(getSimilarValues(ingre, searchRef.current.value))
+        router.push('/#ingredients')
     }
   return (
     <div className={styles.search_container}>

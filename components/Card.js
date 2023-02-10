@@ -103,6 +103,7 @@ function Card({img, title, id, recipe}) {
     //         <p>{pickRandomItem(quotes)}</p></Link>
     //     </div>
     // </div>
+    
     <div href="" className={styles.card}>
       <Link  key={id} href={"/Recipe/"+ id}><img src={img} className={styles.card__image} alt="" /></Link>
       <div className={styles.card__overlay}>

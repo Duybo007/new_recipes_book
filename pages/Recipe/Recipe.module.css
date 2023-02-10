@@ -144,3 +144,13 @@
 .detail_recipe_btn button:hover{
     opacity: 0.5;
 }
+
+.available{
+    color: green;
+    font-weight: bold;
+}
+
+.missing{
+    color: red;
+    font-weight: bold;
+}

@@ -10,7 +10,7 @@
 
 .ingredient_list{
     overflow: auto;
-    height: 380px;
+    height: 300px;
     background-color: purple;
     padding: 1rem;
     border-radius: 20px;
@@ -72,6 +72,11 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.not_found{
+    padding: 2rem;
+    color: white;
 }
 
 @media (max-width: 1000px){
