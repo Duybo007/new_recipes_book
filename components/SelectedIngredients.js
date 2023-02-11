@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import {  selectAvailableIngres, selectUser } from '../features/search/searchSlice'
 import styles from '../styles/SelectedIngredients.module.css'
 
-function SelectedIngredients({selectedOptions, remove, findRecipes, addPantry, clear}) {
+function SelectedIngredients({selectedOptions, remove, findRecipes, addPantry}) {
   const user = useSelector(selectUser)
   return (
     <div className={styles.selectedIngredients}>
@@ -31,7 +31,6 @@ function SelectedIngredients({selectedOptions, remove, findRecipes, addPantry, c
               Add to Pantry
             </button>
           ) : (null)}
-          <button onClick={clear}>Clear</button>
         </div>
     </div>
   )

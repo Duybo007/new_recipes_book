@@ -1,0 +1,47 @@
+.pantry_banner{
+    height: 80vh;
+    overflow: hidden;
+    color: white;
+    position: relative;
+    font-size: 8rem;
+}
+
+.pantry_banner img{
+    width: 100%;
+}
+
+.pantry_banner h1{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    text-shadow: rgb(141, 137, 121) 1px 0 10px;
+}
+
+.pantry_list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F6F7F9;
+}
+
+.pantry_list_search{
+    padding: 1.5rem;
+}
+
+.pantry_list_search input{
+    width: 500px;
+    padding: 1rem 2rem;
+    font-size: 20px;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: rgb(141, 137, 121) 1px 0 10px;
+}
+
+.pantry_list_card{
+    display: flex;
+    padding: 2rem 0;
+    gap: 2rem;
+    flex-wrap: wrap;
+}

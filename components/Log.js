@@ -29,7 +29,8 @@ function Log() {
 				emailSignUpRef.current.value,
 				passwordSignUpRef.current.value)
 				setDoc(doc(db, 'users', emailSignUpRef.current.value), {
-				  savedRecipes: []
+				  savedRecipes: [],
+				  savedIngredients: []
 				})
 		.then((authUser) => {
 		  console.log(authUser)	
@@ -69,13 +70,6 @@ function Log() {
 			<div class={`${styles.form_container} ${styles.sign_up_container}`}>
 				<form action="#">
 					<h1>Create Account</h1>
-					{/* <div class={styles.social_container}>
-						<a href="#" class={styles.social}><i class="fab fa-facebook-f"></i></a>
-						<a href="#" class={styles.social}><i class="fab fa-google-plus-g"></i></a>
-						<a href="#" class={styles.social}><i class="fab fa-linkedin-in"></i></a>
-					</div>
-					<span>or use your email for registration</span> */}
-					{/* <input type="text" placeholder="Name" /> */}
 					<input ref={emailSignUpRef} type="email" placeholder="Email" />
 					<input ref={passwordSignUpRef} type="password" placeholder="Password" />
 					<button onClick={register}>Sign Up</button>

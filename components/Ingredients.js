@@ -1,7 +1,8 @@
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { availableIngres, recipesIngre, searchRecipes, selectAvailableIngres } from '../features/search/searchSlice';
-import { apiKey } from '../firebase';
+import { recipesIngre, searchRecipes, selectUser } from '../features/search/searchSlice';
+import { apiKey, db } from '../firebase';
 import styles from '../styles/Ingredients.module.css'
 import SelectedIngredients from './SelectedIngredients';
 
@@ -41,19 +42,27 @@ function Ingredients({suggestIngre}) {
     findRecipes();
   }, []);
   
-  const pantry = useSelector(selectAvailableIngres)
-  const addPantry = () =>{
+
+  const user = useSelector(selectUser)
+  const recipeID = doc(db , 'users', `${user?.email}`)
+
+  const addPantry = async() =>{
     if(selectedOptions.length === 0) return
-    const ingreArray = [...pantry,...selectedOptions]
+    const ingreArray = [...selectedOptions]
     const ingreSet = new Set(ingreArray)
     // combine 2 array. New array and existing pantry array
     //then convert into Set to eliminate repeat, then turn back into array
-    dispatch(availableIngres([...ingreSet]))
+    for (const item of ingreSet) {
+      await updateDoc(recipeID, {
+        savedIngredients: arrayUnion({
+              ingredient: item,
+              amount: 1
+            })
+      });
+    }
   }
   // Add ingredient into pantry
-  const clear = ()=>{
-    dispatch(availableIngres([]))
-  }
+  
   return (
     <div id="ingredients" className={styles.ingredients}>
       <div className={styles.ingredient_list}>
@@ -74,8 +83,7 @@ function Ingredients({suggestIngre}) {
     selectedOptions={selectedOptions} 
     remove={RemoveAll} 
     addPantry={addPantry}
-    findRecipes={findRecipes}
-    clear={clear}/>
+    findRecipes={findRecipes}/>
     </div>
   )
 }

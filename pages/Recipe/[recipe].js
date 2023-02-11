@@ -2,19 +2,20 @@ import styles from './Recipe.module.css'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { apiKey } from '../../firebase'
+import { apiKey, db } from '../../firebase'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import {BsDownload, BsPrinter } from 'react-icons/bs'
 import {GiKnifeFork} from 'react-icons/gi'
 import Nav from '../../components/Nav'
 import { useSelector } from 'react-redux'
-import { selectAvailableIngres, selectUser } from '../../features/search/searchSlice'
+import {  selectUser } from '../../features/search/searchSlice'
+import { doc, onSnapshot } from 'firebase/firestore'
 
 function recipe() {
     const router = useRouter()
-    const pantryIngre = useSelector(selectAvailableIngres)
     const user = useSelector(selectUser)
     const [detail, setDetail]= useState({})
+    const [pantryIngredients, setPantryIngredients] =useState([])
     let params = router.query
     const hero = [
         "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80",
@@ -42,8 +43,7 @@ function recipe() {
         
     }, [params.recipe])
     console.log(detail)
-    console.log(pantryIngre)
-
+    console.log(pantryIngredients)
     function minutesToHoursString(minutes) {
         let hours = Math.floor(minutes / 60);
         let remainingMinutes = minutes % 60;
@@ -55,7 +55,14 @@ function recipe() {
         } else {
           return `${hours} h ${remainingMinutes} min`;
         }
-      }
+    }
+
+    useEffect(() => {
+        onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
+            setPantryIngredients(doc.data()?.savedIngredients)
+        })
+    }, [user?.email])
+    // check if ingredients in the pantry is available for this recipe
   return (
     <>
         <Nav/>
@@ -161,7 +168,7 @@ function recipe() {
                                 <>
                                     <li key={i.id}>{i.original}</li>
                                     {user? (
-                                        pantryIngre.includes(i.name)? (
+                                        pantryIngredients.includes(i.name)? (
                                             <p className={styles.available}>Available</p>
                                         ) : (
                                             <p className={styles.missing}>Missing</p>

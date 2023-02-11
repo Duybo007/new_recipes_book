@@ -1,0 +1,36 @@
+.pantry_card {
+    width: 230px;
+    height: 230px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid gray;
+    border-radius: 20px;
+    box-shadow: rgb(141, 137, 121) 1px 0 10px;
+    font-family: 'Roboto Mono';
+    text-transform: capitalize;
+}
+
+.pantry_card input{
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    outline: none;
+    width: 55px;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.amount{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pantry_card svg{
+    font-size: 30px;
+}
+

@@ -58,7 +58,9 @@ function Nav() {
         <ul className={styles.nav_links}>
             <li><a href="#">Recipes</a></li>
             <li><a href="#">Cuisines</a></li>
-            <li><a href="#">Blog</a></li>
+            {user? (
+                <li><a href="/Pantry">Pantry</a></li>
+            ): (null)}
             <li><a href="#">News</a></li>
         </ul>
         <form>

@@ -31,6 +31,7 @@ function Card({img, title, id, recipe}) {
     const user = useSelector(selectUser)
     const myRecipes = useSelector(selectMyRecipe)
     const recipeID = doc(db , 'users', `${user?.email}`)
+    
     const deleteRecipes = async (passedID) => {
       console.log("delete")
       setLiked(false)
