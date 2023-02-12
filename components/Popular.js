@@ -53,11 +53,6 @@ function Popular() {
           <div className={styles.popular_recipes_cards} ref={scrollRef}>
           
             {popularRecipes?.map((recipe) => (
-              // <Card key={recipe.id} img={recipe.image} title={recipe.title} id={recipe.id} recipe={recipe}/>
-              // <div key={recipe.id} className={styles.popular_card}>
-              //   <img src={recipe.image}/>
-              //   <p>{recipe.title}</p>
-              // </div>
               <div class={styles.a_box} key={recipe.id}>
                 <div class={styles.img_container}>
                   <div class={styles.img_inner}>

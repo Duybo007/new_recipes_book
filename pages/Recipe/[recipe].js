@@ -63,22 +63,73 @@ function recipe() {
     }, [user?.email])
 
     // check if ingredients in the pantry is available for this recipe
-    function checkIngredient(array, ingredientName) {
-        for (let i = 0; i < array.length; i++) {
-          if (array[i].ingredient === ingredientName) {
-            return true;
-          }
+    const sortedPantry = pantryIngredients.sort(function(a, b) {
+        if (a.ingredient < b.ingredient) {
+            return -1;
         }
+        if (a.ingredient > b.ingredient) {
+            return 1;
+        }
+        return 0;
+    });
+    // sort array of pantry ingredients
+    function binarySearchIngre(ingredients, target) {
+        let start = 0;
+        let end = ingredients.length - 1;
+    
+        while (start <= end) {
+            let middle = Math.floor((start + end) / 2);
+            let ingredient = ingredients[middle].ingredient;
+    
+            if (ingredient === target) {
+                return true;
+            } else if (ingredient < target) {
+                start = middle + 1;
+            } else {
+                end = middle - 1;
+            }
+        }
+    
         return false;
     }
-    function checkAmount(array, ingredientName, amountCheck) {
-        for (let i = 0; i < array.length; i++) {
-            if (array[i].ingredient === ingredientName && array[i].amount === amountCheck) {
-              return true;
+    // using binary search to check if a target ingredient is in the sorted array
+    function binarySearchAmount(ingredients, target, targetAmount) {
+        let start = 0;
+        let end = ingredients.length - 1;
+    
+        while (start <= end) {
+            let middle = Math.floor((start + end) / 2);
+            let ingredient = ingredients[middle];
+    
+            if (ingredient.ingredient === target && ingredient.amount === targetAmount) {
+                return true;
+            } else if (ingredient.ingredient < target || (ingredient.ingredient === target && ingredient.amount < targetAmount)) {
+                start = middle + 1;
+            } else {
+                end = middle - 1;
             }
-          }
-          return false;
+        }
+    
+        return false;
     }
+    // using binary search to check if a target ingredient and amount is in the sorted array
+
+    // function checkIngredient(array, ingredientName) {
+    //     for (let i = 0; i < array.length; i++) {
+    //       if (array[i].ingredient === ingredientName) {
+    //         return true;
+    //       }
+    //     }
+    //     return false;
+    // }
+    // function checkAmount(array, ingredientName, amountCheck) {
+    //     for (let i = 0; i < array.length; i++) {
+    //         if (array[i].ingredient === ingredientName && array[i].amount === amountCheck) {
+    //           return true;
+    //         }
+    //       }
+    //       return false;
+    // }
   return (
     <>
         <Nav/>
@@ -114,8 +165,8 @@ function recipe() {
                                 <div key={i.id}>
                                     <li >{i.original} : {i.amount}</li>
                                     {user? (
-                                        checkIngredient(pantryIngredients, i.name)? (
-                                            checkAmount(pantryIngredients, i.name, i.amount)? (
+                                        binarySearchIngre(pantryIngredients, i.name)? (
+                                            binarySearchAmount(pantryIngredients, i.name, i.amount)? (
                                                 <p className={styles.available}>Available</p>
                                             ) : (
                                                 <p className={styles.available}>Available but not enough</p>
