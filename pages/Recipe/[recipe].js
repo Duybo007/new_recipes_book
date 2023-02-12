@@ -42,8 +42,7 @@ function recipe() {
         fetchDetail()}
         
     }, [params.recipe])
-    console.log(detail)
-    console.log(pantryIngredients)
+
     function minutesToHoursString(minutes) {
         let hours = Math.floor(minutes / 60);
         let remainingMinutes = minutes % 60;
@@ -62,7 +61,24 @@ function recipe() {
             setPantryIngredients(doc.data()?.savedIngredients)
         })
     }, [user?.email])
+
     // check if ingredients in the pantry is available for this recipe
+    function checkIngredient(array, ingredientName) {
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].ingredient === ingredientName) {
+            return true;
+          }
+        }
+        return false;
+    }
+    function checkAmount(array, ingredientName, amountCheck) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].ingredient === ingredientName && array[i].amount === amountCheck) {
+              return true;
+            }
+          }
+          return false;
+    }
   return (
     <>
         <Nav/>
@@ -73,77 +89,7 @@ function recipe() {
             <link rel="icon" href="/logo.png" />
         </Head>
         <div className={styles.detail}>
-            {/* <div className={styles.left}>
-                <div className={styles.left_top}>
-                    <div className={styles.logo}>
-                        <a href='/'><img src='/logo.png' alt="logo"/></a>
-                    </div>
-                    <div className={styles.time}>
-                        <div className={styles.time_top}>
-                            <h1>{minutesToHoursString(detail.readyInMinutes)}</h1>
-                        </div>
-                        <div className={styles.time_bottom}>
-                            <MdOutlineTimer/>
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.left_middle}>
-                    <div className={styles.left_middle_img}>
-                        <img src={detail.image}/>
-                    </div>
-                </div>
-                <div className={styles.left_bottom}>
-                    <div className={styles.vegan}>
-                        <img src='/vegan.png'/>
-                    </div>
-                    <div className={styles.vegan_des}>
-                        <h1>{detail.vegan? "yes": "no"}</h1>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.middle}>
-                <div className={styles.middle_top}>
-                    <div className={styles.instruction}>
-                        <button
-                        onClick={() => setActiveTab('instructions')}
-                        className={activeTab === "instructions" ? styles.active: styles.disable}
-                        >instruction</button>
-                    </div>
-                    <div className={styles.ingredients}>
-                        <button
-                        className={activeTab === "ingredients" ? styles.active: styles.disable}
-                        onClick={() => setActiveTab('ingredients')}
-                        >ingredients</button>
-                    </div>
-                </div>
-                {activeTab === "instructions" && (
-                    <div className={styles.middle_bottom}>
-                        <p  dangerouslySetInnerHTML={{__html: detail.summary}}></p>
-                        <p  dangerouslySetInnerHTML={{__html: detail.instructions}}></p>
-                    </div>
-                )}
-                {activeTab === "ingredients" && (
-                    <ul className={styles.middle_bottom}>
-                        {detail.extendedIngredients.map((i)=> (
-                        <li key={i.id}>{i.original}</li>) )}
-                    </ul>
-                )}
-            </div>
-            <div className={styles.right}>
-                <div className={styles.right_top}>
-                    <div className={styles.serving_left}><p>serving</p></div>
-                    <br/>
-                    <div className={styles.serving_right}>{detail.servings}</div>
-                </div>
-                <div className={styles.right_middle}>
-                    <GiMilkCarton/>
-                    <h1>{detail.dairyFree? "dairy free" : "contain dairy"}</h1>
-                </div>
-                <div className={styles.right_bottom}>
-                    <GiWheat/>
-                    <h1>{detail.glutenFree? "gluten free" : "contain gluten"}</h1>
-                </div>
-            </div> */}
+            
             <div className={styles.banner}>
                 <img src={pickRandomItem(hero)}/>
                 <div className={styles.banner_icons}>
@@ -164,17 +110,22 @@ function recipe() {
                         </div>
                         <div>
                             <ol className={styles.ingre_list}>
-                                {detail.extendedIngredients?.map((i)=> (
-                                <>
-                                    <li key={i.id}>{i.original}</li>
+                            {detail.extendedIngredients?.map((i) => (
+                                <div key={i.id}>
+                                    <li >{i.original} : {i.amount}</li>
                                     {user? (
-                                        pantryIngredients.includes(i.name)? (
-                                            <p className={styles.available}>Available</p>
+                                        checkIngredient(pantryIngredients, i.name)? (
+                                            checkAmount(pantryIngredients, i.name, i.amount)? (
+                                                <p className={styles.available}>Available</p>
+                                            ) : (
+                                                <p className={styles.available}>Available but not enough</p>
+                                            )
                                         ) : (
                                             <p className={styles.missing}>Missing</p>
                                         )
-                                    ) :(null)}
-                                </>) )}
+                                    ) : (null)}
+                                </div>
+                            ))}
                             </ol>
                         </div>
                     </div>

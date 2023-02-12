@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 function PantryCard({ingredient, ingredientList}) {
     const [amount, setAmount] =useState(ingredient.amount)
     const [adjust, setAdjust] = useState(false)
-    const [newArrayIngre, setNewArrayIngre] = useState([])
     const ingreName = ingredient.ingredient
 
     const add = () => {
@@ -32,7 +31,6 @@ function PantryCard({ingredient, ingredientList}) {
           }
           return item;
         });
-        setNewArrayIngre(newArray);
         try {
            await updateDoc(recipeID, {
             savedIngredients:newArray})
@@ -41,7 +39,7 @@ function PantryCard({ingredient, ingredientList}) {
             console.log(error)
         }
     }
-    console.log(newArrayIngre)
+
   return (
     <div className={styles.pantry_card}>
         <h3>{ingredient.ingredient}</h3>
@@ -65,6 +63,7 @@ function PantryCard({ingredient, ingredientList}) {
             }}
             className={styles.adjust}>Adjust</button>
         ): (null)}
+        <h2>On hand</h2>
     </div>
   )
 }
