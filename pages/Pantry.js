@@ -17,6 +17,7 @@ function Pantry() {
             setIngredientList(doc.data()?.savedIngredients)
         })
     }, [user])
+    console.log(ingredientList)
   return (
     <div>
         <Head>
@@ -41,7 +42,10 @@ function Pantry() {
 
                 <div className={styles.pantry_list_card}>
                     {ingredientList?.map((i, index) => (
-                        <PantryCard key={index} ingredient={i}/>
+                        <PantryCard 
+                        ingredientList={ingredientList}
+                        key={index} 
+                        ingredient={i}/>
                     ))}
                 </div>
             </div>

@@ -33,7 +33,6 @@ function Card({img, title, id, recipe}) {
     const recipeID = doc(db , 'users', `${user?.email}`)
     
     const deleteRecipes = async (passedID) => {
-      console.log("delete")
       setLiked(false)
       try {
         const res = myRecipes.filter((recipe)=> recipe.id !== passedID)
@@ -45,7 +44,6 @@ function Card({img, title, id, recipe}) {
       }
     }
     const savedRecipes = async () => {
-      console.log("save")
       if (user?.email){
         setLiked(true)
         await updateDoc(recipeID, {

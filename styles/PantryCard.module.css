@@ -11,6 +11,7 @@
     box-shadow: rgb(141, 137, 121) 1px 0 10px;
     font-family: 'Roboto Mono';
     text-transform: capitalize;
+    background-color: white;
 }
 
 .pantry_card input{
@@ -34,3 +35,15 @@
     font-size: 30px;
 }
 
+.adjust{
+    padding: 0.7rem 2rem;
+    background-color: rgba(255, 166, 0, 0.753);
+    color: white;
+    font-size: 1rem;
+    border-radius: 15px;
+    transition: all 0.5s;
+}
+
+.adjust:hover{
+    background-color: orange;
+}
