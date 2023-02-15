@@ -161,9 +161,9 @@ function recipe() {
                         </div>
                         <div>
                             <ol className={styles.ingre_list}>
-                            {detail.extendedIngredients?.map((i) => (
-                                <div key={i.id}>
-                                    <li >{i.original} : {i.amount}</li>
+                            {detail.extendedIngredients?.map((i, index) => (
+                                <li key={i.id}>
+                                    <div >{i.original} : {i.amount}</div>
                                     {user? (
                                         binarySearchIngre(pantryIngredients, i.name)? (
                                             binarySearchAmount(pantryIngredients, i.name, i.amount)? (
@@ -175,7 +175,7 @@ function recipe() {
                                             <p className={styles.missing}>Missing</p>
                                         )
                                     ) : (null)}
-                                </div>
+                                </li>
                             ))}
                             </ol>
                         </div>

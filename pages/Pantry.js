@@ -7,17 +7,45 @@ import PantryCard from '../components/PantryCard'
 import { selectUser } from '../features/search/searchSlice'
 import { db } from '../firebase'
 import styles from './Pantry.module.css'
+import _ from 'lodash';
+
+function useDebounceSearchTerm(value, time = 500) {
+    const [debounceSearchTerm, setDebounceSearchTerm] = useState(value)
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebounceSearchTerm(value)
+        }, time)
+
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [value, time]);
+
+    return debounceSearchTerm
+}
 
 function Pantry() {
-    const [ingredientList, setIngredientList] =useState([])
-    const user = useSelector(selectUser)
-    console.log(ingredientList)
+    const user = useSelector(selectUser);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [pantryIngredients, setPantryIngredients] = useState([]);
+    const [filteredIngredients, setFilteredIngredients] = useState([]);
+    const debounce = useDebounceSearchTerm(searchTerm)
+
     useEffect(() => {
         onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-            setIngredientList(doc.data()?.savedIngredients)
+            setPantryIngredients(doc.data()?.savedIngredients)
         })
     }, [user])
-    console.log(ingredientList)
+
+    useEffect(() => {
+        setFilteredIngredients(
+          pantryIngredients.filter((ingredient) => {
+            return ingredient.ingredient.toLowerCase().includes(debounce.toLowerCase());
+          })
+        );
+    }, [debounce, pantryIngredients]);
+
   return (
     <div>
         <Head>
@@ -36,17 +64,28 @@ function Pantry() {
             <div className={styles.pantry_list}>
                 <div className={styles.pantry_list_search}>
                     <input 
+                    value={searchTerm} 
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder='Search my ingredients'
                     />
                 </div>
 
                 <div className={styles.pantry_list_card}>
-                    {ingredientList?.map((i, index) => (
-                        <PantryCard 
-                        ingredientList={ingredientList}
-                        key={index} 
-                        ingredient={i}/>
-                    ))}
+                    {debounce ===""? (
+                        pantryIngredients?.map((i, index) => (
+                            <PantryCard 
+                            ingredientList={pantryIngredients}
+                            key={index} 
+                            ingredient={i}/>
+                        ))
+                    ) : (
+                        filteredIngredients?.map((i, index) => (
+                            <PantryCard 
+                            ingredientList={filteredIngredients}
+                            key={index} 
+                            ingredient={i}/>
+                        ))
+                    )}
                 </div>
             </div>
         </div>
