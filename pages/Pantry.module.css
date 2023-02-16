@@ -8,6 +8,7 @@
 
 .pantry_banner img{
     width: 100%;
+    object-fit: cover;
 }
 
 .pantry_banner h1{

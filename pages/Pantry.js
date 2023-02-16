@@ -7,7 +7,7 @@ import PantryCard from '../components/PantryCard'
 import { selectUser } from '../features/search/searchSlice'
 import { db } from '../firebase'
 import styles from './Pantry.module.css'
-import _ from 'lodash';
+import { motion, AnimatePresence } from "framer-motion"
 
 function useDebounceSearchTerm(value, time = 500) {
     const [debounceSearchTerm, setDebounceSearchTerm] = useState(value)
@@ -35,10 +35,15 @@ function Pantry() {
     useEffect(() => {
         onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
             setPantryIngredients(doc.data()?.savedIngredients)
+            setFilteredIngredients(doc.data()?.savedIngredients)
         })
     }, [user])
 
     useEffect(() => {
+        if(debounce ==="") {
+            setFilteredIngredients(pantryIngredients);
+            return
+        }
         setFilteredIngredients(
           pantryIngredients.filter((ingredient) => {
             return ingredient.ingredient.toLowerCase().includes(debounce.toLowerCase());
@@ -70,23 +75,18 @@ function Pantry() {
                     />
                 </div>
 
-                <div className={styles.pantry_list_card}>
-                    {debounce ===""? (
-                        pantryIngredients?.map((i, index) => (
-                            <PantryCard 
-                            ingredientList={pantryIngredients}
-                            key={index} 
-                            ingredient={i}/>
-                        ))
-                    ) : (
-                        filteredIngredients?.map((i, index) => (
+                <motion.div
+                layout
+                className={styles.pantry_list_card}>
+                    <AnimatePresence>
+                    {filteredIngredients?.map((i, index) => (
                             <PantryCard 
                             ingredientList={filteredIngredients}
                             key={index} 
                             ingredient={i}/>
-                        ))
-                    )}
-                </div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
             </div>
         </div>
     </div>

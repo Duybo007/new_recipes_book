@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/PantryCard.module.css'
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
-import { arrayUnion, doc,  updateDoc } from 'firebase/firestore';
+import { doc,  updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { selectUser } from '../features/search/searchSlice';
 import { useSelector } from 'react-redux';
+import { motion } from "framer-motion"
 
 function PantryCard({ingredient, ingredientList}) {
     const [amount, setAmount] =useState(ingredient.amount)
@@ -41,7 +42,12 @@ function PantryCard({ingredient, ingredientList}) {
     }
 
   return (
-    <div className={styles.pantry_card}>
+    <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    layout 
+    className={styles.pantry_card}>
         <h3>{ingredient.ingredient}</h3>
         <div className={styles.amount}>
             <AiOutlineMinusCircle onClick={minus}/>
@@ -64,7 +70,7 @@ function PantryCard({ingredient, ingredientList}) {
             className={styles.adjust}>Adjust</button>
         ): (null)}
         <h2>On hand</h2>
-    </div>
+    </motion.div>
   )
 }
 
