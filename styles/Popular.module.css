@@ -32,7 +32,9 @@
     overflow-x: scroll;
     scrollbar-width: none;
 }
-
+.popular_recipes_cards::-webkit-scrollbar {
+    display: none;
+  }
 .popular_recipes_arrows{
     width: 100%;
     display: flex;
