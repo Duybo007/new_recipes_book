@@ -50,6 +50,92 @@
     height: 100%;
 }
 
+
+.content {
+    width: 80%;
+    height: 40px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 60px;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+  
+.subscription {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+  
+.subscription .add_email {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0 20px;
+}
+  
+.subscription .submit_email {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: calc(100% - 2px);
+    width: 100px;
+    border: none;
+    border-radius: 60px;
+    outline: none;
+    margin: 1px;
+    padding: 0 20px;
+    cursor: pointer;
+    background: #4abebb;
+    color: #ffffff;
+    transition: width 0.35s ease-in-out, background 0.35s ease-in-out;
+}
+  
+.subscription.done .submit_email {
+    width: calc(100% - 2px);
+    background: #c0e02e;
+}
+  
+.subscription .submit_email .before_submit,
+.subscription .submit_email .after_submit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 38px;
+    transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out;
+}
+  
+.subscription.done .submit_email .before_submit,
+.subscription:not(.done) .submit_email .after_submit {
+    visibility: hidden;
+    opacity: 0;
+}
+  
+.subscription .submit_email .after_submit {
+    transition-delay: 0.35s;
+}
+  
+.subscription:not(.done) .submit_email .before_submit,
+.subscription.done .submit_email .after_submit {
+    visibility: visible;
+    opacity: 1;
+}
+  
+
+
+
+
+
+
+
+
+
 @media (max-width: 1000px){
     .footer{
         padding: 1rem;
@@ -70,5 +156,8 @@
     }
     .footer_input button{
         padding: 1rem 20px;
+    }
+    .subscription input{
+        font-size: 17px;
     }
 }

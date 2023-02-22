@@ -62,7 +62,6 @@ function Pantry() {
         <Nav/>
         <div className={styles.pantry}>
             <div className={styles.pantry_banner}>
-                <img src="/pantry.jpg"/>
                 <h1>Your Pantry</h1>
             </div>
 

@@ -4,6 +4,12 @@
     color: white;
     position: relative;
     font-size: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center center;
+    background-image: url("https://images.unsplash.com/photo-1580927942266-81d0519eb7be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")
 }
 
 .pantry_banner img{
@@ -12,12 +18,8 @@
 }
 
 .pantry_banner h1{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
-    text-shadow: rgb(141, 137, 121) 1px 0 10px;
+    text-shadow: 1px 1px 2px pink;
 }
 
 .pantry_list{
@@ -30,10 +32,11 @@
 
 .pantry_list_search{
     padding: 1.5rem;
+    width: 60%;
 }
 
 .pantry_list_search input{
-    width: 500px;
+    width: 100%;
     padding: 1rem 2rem;
     font-size: 20px;
     border-radius: 20px;
@@ -43,7 +46,18 @@
 
 .pantry_list_card{
     display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 2rem 1rem;
     gap: 2rem;
     flex-wrap: wrap;
+}
+
+@media (max-width: 800px){
+    .pantry_banner{
+        font-size: 5rem;
+    }
+    .pantry_list_search{
+        width: 90%;
+    }
 }
