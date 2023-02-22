@@ -38,8 +38,8 @@ function RecipeList() {
             <span className="screen-reader"></span>
           </a>  
           <div className={styles.popup__content}>
-            {recipes?.map((r) => (
-              <div className={styles.recipe_list}>
+            {recipes?.map((r, index) => (
+              <div key={index} className={styles.recipe_list}>
                 <Link key={r.id} href={"/Recipe/"+r.id}><img src={r.img}/>
                 <h2>{r.title}</h2></Link>
                 <AiFillHeart

@@ -132,3 +132,15 @@
 .text_container:hover h3{
     color: white;
 }
+
+@media (max-width: 800px){
+    .popular{
+        padding: 2rem 1rem;
+    }
+    .popular h1{
+        font-size: 3rem;
+    }
+    .popular p{
+        width: auto;
+    }
+}

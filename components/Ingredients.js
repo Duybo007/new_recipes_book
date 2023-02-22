@@ -66,24 +66,24 @@ function Ingredients({suggestIngre}) {
   return (
     <div id="ingredients" className={styles.ingredients}>
       <div className={styles.ingredient_list}>
-      {suggestIngre?.length> 0? (
-        suggestIngre?.map((i)=> (
-          <label className={styles.main}>{i}
-          <input
-            value={i} 
-            onChange={handleChange}
-            checked={selectedOptions.includes(i)}
-            type="checkbox"/>
-          <span className={styles.w3docs}></span>
-          </label>
-          ))
-      ) : (<h2 className={styles.not_found}>Not Found</h2>)}
+        {suggestIngre?.length> 0? (
+          suggestIngre?.map((i)=> (
+            <label className={styles.main}>{i}
+            <input
+              value={i} 
+              onChange={handleChange}
+              checked={selectedOptions.includes(i)}
+              type="checkbox"/>
+            <span className={styles.w3docs}></span>
+            </label>
+            ))
+        ) : (<h2 className={styles.not_found}>Not Found</h2>)}
       </div>
-    <SelectedIngredients 
-    selectedOptions={selectedOptions} 
-    remove={RemoveAll} 
-    addPantry={addPantry}
-    findRecipes={findRecipes}/>
+      <SelectedIngredients 
+      selectedOptions={selectedOptions} 
+      remove={RemoveAll} 
+      addPantry={addPantry}
+      findRecipes={findRecipes}/>
     </div>
   )
 }

@@ -68,7 +68,6 @@ function Search() {
             <div className={styles.search_hero_text}>
                 <p>Aside from their natural good tase and great crunchy texture alongside wonderful colors and fragrances, eating a large serving of fresh.</p>
             </div>
-            <img src='/tomato.jpg'/>
         </div>
         <Popular/>
         {recipesDisplay.length > 0? (

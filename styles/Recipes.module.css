@@ -18,9 +18,23 @@
     font-size: 3rem;
     color: #005AFF
 }
-@media (max-width: 500px){
+
+@media (max-width: 1200px){
     .recipes{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr)
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .recipes_page h1{
+        text-align: center;
+    }
+}
+@media (max-width: 1000px){
+    .recipes{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 700px){
+    .recipes{
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0;
     }
 }

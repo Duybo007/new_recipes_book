@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styles from '../styles/Nav.module.css'
 import { BiSearchAlt } from 'react-icons/bi';
+import {AiOutlineMenu} from "react-icons/ai"
+import {MdOutlineRestaurantMenu} from "react-icons/md"
 import Log from './Log';
 import { login, logout, openModal, openSignin, openSignup, searchRecipes, searchWord, selectUser } from '../features/search/searchSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -49,8 +51,29 @@ function Nav() {
         return unsubscribe
       }, [dispatch])
 
+    //Navbar opacity 100% when scroll down
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+        if (window.pageYOffset > 0) {
+            setIsScrolled(true);
+        } else {
+            setIsScrolled(false);
+        }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+        window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    //Navbar phone
+    const [active, setActive] = useState(false)
   return (
-    <div className={styles.nav}>
+    <div className={`${styles.nav} ${isScrolled ? styles.scrolled : ""}`}>
         <div className={styles.nav_logo}>
             <Link href={"/"}><img src='/logo.png'/></Link>
         </div>
@@ -74,6 +97,36 @@ function Nav() {
                     />
             </div>
         </form>
+
+        <AiOutlineMenu onClick={()=>setActive(true)} className={styles.btn}/>
+        <div className={`${styles.wrapper} ${active? styles.active : ""}`}>
+            <MdOutlineRestaurantMenu className={`${styles.btn} ${styles.close}`}  onClick={()=>setActive(false)}/>
+            <ul className={styles.links_small}>
+                <li onClick={()=>setActive(false)} className='p__opensans'><a href="#about">Recipes</a></li>
+                <li onClick={()=>setActive(false)} className='p__opensans'><a href="#skills">Cuisines</a></li>
+                <li onClick={()=>setActive(false)} className='p__opensans'><a href="/Pantry">Pantry</a></li>
+                <li onClick={()=>setActive(false)} className='p__opensans'><a href="#contact">News</a></li>
+                {!user ? (
+                        <>
+                            <li onClick={()=>{
+                                setActive(false)
+                                signUp()}}>Sign Up</li>
+                            <li onClick={()=>{
+                                setActive(false)
+                                signIn()}}>Sign In</li>
+                        </>
+                    ) : (
+                        <>
+                            <li onClick={() => {
+                                setActive(false)
+                                signOut(auth)}}>Sign Out</li>
+                            <li onClick={()=>setActive(false)}
+                            ><a href='#popup-article'>My Recipes</a></li>
+                        </>
+                )}
+            </ul>
+        </div>
+
             {!user ? (
                         <div className={styles.nav_right_log_links}>
                             <a className={styles.nav_link} onClick={signUp}>Sign Up</a>
