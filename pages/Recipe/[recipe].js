@@ -72,6 +72,7 @@ function recipe() {
         }
         return 0;
     });
+    console.log(sortedPantry)
     // sort array of pantry ingredients
     function binarySearchIngre(ingredients, target) {
         let start = 0;
@@ -114,22 +115,18 @@ function recipe() {
     }
     // using binary search to check if a target ingredient and amount is in the sorted array
 
-    // function checkIngredient(array, ingredientName) {
-    //     for (let i = 0; i < array.length; i++) {
-    //       if (array[i].ingredient === ingredientName) {
-    //         return true;
-    //       }
-    //     }
-    //     return false;
-    // }
-    // function checkAmount(array, ingredientName, amountCheck) {
-    //     for (let i = 0; i < array.length; i++) {
-    //         if (array[i].ingredient === ingredientName && array[i].amount === amountCheck) {
-    //           return true;
-    //         }
-    //       }
-    //       return false;
-    // }
+    // calc the difference between require and on hand ingredient
+    function calculateIngredientDifference(arr, ingredient, targetAmount) {
+        let ingredientCount = 0;
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].ingredient === ingredient) {
+            ingredientCount += arr[i].amount;
+          }
+        }
+        return targetAmount - ingredientCount;
+    }
+    
+
   return (
     <>
         <Nav/>
@@ -165,11 +162,11 @@ function recipe() {
                                 <li key={i.id}>
                                     <div >{i.original} : {i.amount}</div>
                                     {user? (
-                                        binarySearchIngre(pantryIngredients, i.name)? (
-                                            binarySearchAmount(pantryIngredients, i.name, i.amount)? (
+                                        binarySearchIngre(sortedPantry, i.name)? (
+                                            binarySearchAmount(sortedPantry, i.name, i.amount)? (
                                                 <p className={styles.available}>Available</p>
                                             ) : (
-                                                <p className={styles.available}>Available but not enough</p>
+                                                <p className={styles.available}>Available but not enough <span className={styles.missing}>(missing {calculateIngredientDifference(sortedPantry,i.name, i.amount)})</span></p>
                                             )
                                         ) : (
                                             <p className={styles.missing}>Missing</p>

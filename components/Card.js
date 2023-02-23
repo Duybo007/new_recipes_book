@@ -87,22 +87,7 @@ function Card({img, title, id, recipe}) {
     }
   }
   return (
-    
-    // <div className={styles.wrapper}>
-    //     <div className={`${styles.box} ${styles.zoom_in}`}>
-    //     { user ? (
-    //     liked ? (
-    //       <AiFillHeart onClick={()=>deleteRecipes(id)} className={styles.liked}/>
-    //     ) : (
-    //       <AiOutlineHeart onClick={savedRecipes} />
-    //     )
-    //     ) : null }
-    //         <Link  key={id} href={"/Recipe/"+ id}><img src={img} alt="Recipes img"/>
-    //         <h2>{title}</h2>
-    //         <p>{pickRandomItem(quotes)}</p></Link>
-    //     </div>
-    // </div>
-    
+   
     <div href="" className={styles.card}>
       <Link  key={id} href={"/Recipe/"+ id}><img src={img} className={styles.card__image} alt="" /></Link>
       <div className={styles.card__overlay}>
