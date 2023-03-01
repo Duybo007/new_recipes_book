@@ -87,5 +87,15 @@
         gap: 1rem;
         height: 600px;
     }
-
+    .ingredient_list{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+@media (max-width: 600px){
+    .ingredient_list{
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
 }

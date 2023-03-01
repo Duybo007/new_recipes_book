@@ -23,7 +23,7 @@ const firebaseConfig = {
   
   };
   
-const apiKey = "1a90d79fd2774617ae125d49149dc0c4" 
+const apiKey = "832d4a7e0e8e4b34add5c8bea50ecf0a" 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 const db = getFirestore()

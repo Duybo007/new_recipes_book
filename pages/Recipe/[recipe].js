@@ -8,14 +8,39 @@ import {BsDownload, BsPrinter } from 'react-icons/bs'
 import {GiKnifeFork} from 'react-icons/gi'
 import Nav from '../../components/Nav'
 import { useSelector } from 'react-redux'
-import {  selectUser } from '../../features/search/searchSlice'
+import {  selectMyRecipe, selectUser } from '../../features/search/searchSlice'
 import { doc, onSnapshot } from 'firebase/firestore'
+import useSaveRecipe from '../../hook/useSaveRecipe'
 
+function binarySearchIngre(ingredients, target) {
+    let start = 0;
+    let end = ingredients?.length - 1;
+
+    while (start <= end) {
+        let middle = Math.floor((start + end) / 2);
+        let ingredient = ingredients[middle].ingredient;
+
+        if (ingredient === target) {
+            return true;
+        } else if (ingredient < target) {
+            start = middle + 1;
+        } else {
+            end = middle - 1;
+        }
+    }
+
+    return false;
+}
+// using binary search to check if a target ingredient is in the sorted array
 function recipe() {
     const router = useRouter()
     const user = useSelector(selectUser)
     const [detail, setDetail]= useState({})
+    const [liked, setLiked] = useState(false)
     const [pantryIngredients, setPantryIngredients] =useState([])
+
+    const { savedRecipes, deleteRecipes } = useSaveRecipe(detail.image, detail.title, detail.id)
+
     let params = router.query
     const hero = [
         "https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80",
@@ -63,7 +88,7 @@ function recipe() {
     }, [user?.email])
 
     // check if ingredients in the pantry is available for this recipe
-    const sortedPantry = pantryIngredients.sort(function(a, b) {
+    const sortedPantry = pantryIngredients?.sort(function(a, b) {
         if (a.ingredient < b.ingredient) {
             return -1;
         }
@@ -72,28 +97,8 @@ function recipe() {
         }
         return 0;
     });
-    console.log(sortedPantry)
     // sort array of pantry ingredients
-    function binarySearchIngre(ingredients, target) {
-        let start = 0;
-        let end = ingredients.length - 1;
     
-        while (start <= end) {
-            let middle = Math.floor((start + end) / 2);
-            let ingredient = ingredients[middle].ingredient;
-    
-            if (ingredient === target) {
-                return true;
-            } else if (ingredient < target) {
-                start = middle + 1;
-            } else {
-                end = middle - 1;
-            }
-        }
-    
-        return false;
-    }
-    // using binary search to check if a target ingredient is in the sorted array
     function binarySearchAmount(ingredients, target, targetAmount) {
         let start = 0;
         let end = ingredients.length - 1;
@@ -102,7 +107,7 @@ function recipe() {
             let middle = Math.floor((start + end) / 2);
             let ingredient = ingredients[middle];
     
-            if (ingredient.ingredient === target && ingredient.amount === targetAmount) {
+            if (ingredient.ingredient === target && ingredient.amount >= targetAmount) {
                 return true;
             } else if (ingredient.ingredient < target || (ingredient.ingredient === target && ingredient.amount < targetAmount)) {
                 start = middle + 1;
@@ -126,7 +131,15 @@ function recipe() {
         return targetAmount - ingredientCount;
     }
     
+    const myRecipes = useSelector(selectMyRecipe)
 
+    useEffect(() => {
+        myRecipes?.find((r) => {
+          if(r.id == detail.id){
+            setLiked(true)
+          }
+        })
+    }, [myRecipes, detail.id])
   return (
     <>
         <Nav/>
@@ -142,7 +155,16 @@ function recipe() {
                 <img src={pickRandomItem(hero)}/>
                 <div className={styles.banner_icons}>
                     <div className={styles.banner_icon}><BsPrinter/></div>
-                    <div className={styles.banner_icon}><AiOutlineHeart/></div>
+                    { user ? (
+                        liked ? (
+                        <div className={styles.banner_icon}><AiFillHeart onClick={() =>{
+                            setLiked(false)
+                            deleteRecipes(detail.id)}} /></div>
+                        ) : (
+                        <div className={styles.banner_icon}><AiOutlineHeart onClick={savedRecipes} /></div>
+                        )
+                        ) : null 
+                    }
                     <div className={styles.banner_icon}><BsDownload/></div>
                 </div>
             </div>

@@ -39,13 +39,13 @@ function RecipeList() {
           </a>  
           <div className={styles.popup__content}>
             {recipes?.map((r, index) => (
-              <div key={index} className={styles.recipe_list}>
-                <Link key={r.id} href={"/Recipe/"+r.id}><img src={r.img}/>
-                <h2>{r.title}</h2></Link>
+              <Link key={r.id} href={"/Recipe/"+r.id}><div key={index} className={styles.recipe_list}>
+                <img src={r.img}/>
+                <h2>{r.title}</h2>
                 <AiFillHeart
                 onClick={()=>deleteRecipes(r.id)}
                 className={styles.liked}/>
-              </div>
+              </div></Link>
             ))}
           </div>
         </div>

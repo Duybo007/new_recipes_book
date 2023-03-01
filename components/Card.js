@@ -6,8 +6,10 @@ import { selectMyRecipe, selectUser } from '../features/search/searchSlice';
 import {arrayUnion, doc, updateDoc} from 'firebase/firestore'
 import { apiKey, db } from '../firebase'
 import Link from 'next/link';
+import useSaveRecipe from '../hook/useSaveRecipe';
 
 function Card({img, title, id, recipe}) {
+
     const [liked, setLiked] = useState(false)
     const quotes = ["First, we eat. Then, we do everything else",
                     "Lifes is uncertain. Eat dessert first",
@@ -30,32 +32,34 @@ function Card({img, title, id, recipe}) {
     }
     const user = useSelector(selectUser)
     const myRecipes = useSelector(selectMyRecipe)
-    const recipeID = doc(db , 'users', `${user?.email}`)
+    // const recipeID = doc(db , 'users', `${user?.email}`)
     
-    const deleteRecipes = async (passedID) => {
-      setLiked(false)
-      try {
-        const res = myRecipes.filter((recipe)=> recipe.id !== passedID)
-        await updateDoc(recipeID, {
-          savedRecipes: res
-        })
-      } catch(err) {
-        console.log(err)
-      }
-    }
-    const savedRecipes = async () => {
-      if (user?.email){
-        setLiked(true)
-        await updateDoc(recipeID, {
-          savedRecipes: arrayUnion({
-            id: id,
-            title: title,
-            img: img
-          })
-        })
-        }
-      }
-    useEffect(() => {
+    const {savedRecipes, deleteRecipes } = useSaveRecipe(img, title, id);
+
+    // const deleteRecipes = async (passedID) => {
+    //   setLiked(false)
+    //   try {
+    //     const res = myRecipes.filter((recipe)=> recipe.id !== passedID)
+    //     await updateDoc(recipeID, {
+    //       savedRecipes: res
+    //     })
+    //   } catch(err) {
+    //     console.log(err)
+    //   }
+    // }
+    // const savedRecipes = async () => {
+    //   if (user?.email){
+    //     setLiked(true)
+    //     await updateDoc(recipeID, {
+    //       savedRecipes: arrayUnion({
+    //         id: id,
+    //         title: title,
+    //         img: img
+    //       })
+    //     })
+    //     }
+    //   }
+  useEffect(() => {
       myRecipes?.map((r) => {
         if(r.id === id){
           setLiked(true)
@@ -98,7 +102,9 @@ function Card({img, title, id, recipe}) {
           <div className={styles.liked}>
           { user ? (
             liked ? (
-              <AiFillHeart onClick={()=>deleteRecipes(id)} className={styles.liked}/>
+              <AiFillHeart onClick={() =>{
+                setLiked(false)
+                deleteRecipes(id)}} className={styles.liked}/>
             ) : (
               <AiOutlineHeart onClick={savedRecipes} className={styles.liked}/>
             )

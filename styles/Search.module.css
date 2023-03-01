@@ -42,7 +42,22 @@
     align-items: center;
     gap: 8rem;
     margin: 0 auto;
-    padding: 4rem 0
+    padding: 4rem 0;
+    position: relative;
+    
+}
+.search_ingre::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url(/ingrebg.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
 }
 .search_ingre img{
     width: 630px;
